@@ -29,23 +29,56 @@
   input, select { width:100%; padding:10px; border-radius:8px; border:1px solid #475569; background:var(--card); color:var(--text); font-size:15px; font-family:inherit; }
   pre { background:var(--card); padding:10px; border-radius:8px; font-size:12px; max-height:150px; overflow:auto; white-space:pre-wrap; }
   .bye { font-size:20px; text-align:center; }
+  #ticker { max-width:620px; margin-top:10px; color:var(--muted); font-size:14px; text-align:center; cursor:pointer; }
+  #info { display:none; position:fixed; inset:0; background:var(--bg); padding:20px; overflow:auto; }
+  #info .box { max-width:680px; margin:0 auto; }
+  .muted { color:var(--muted); font-size:13px; margin:6px 0; }
+  .sec { background:var(--card); border-radius:12px; padding:14px 16px; margin:12px 0; }
+  .sec h3 { margin:0 0 8px; color:var(--accent); font-size:17px; }
+  .sec p { white-space:pre-line; margin:0; line-height:1.75; font-size:16px; }
+  .src { font-size:12px; margin-top:10px; color:var(--muted); }
+  .src a, #official a { color:#7dd3fc; }
+  #official { line-height:2; }
+  .warn { background:#422006; color:#fde68a; border-radius:10px; padding:10px 12px; font-size:13px; line-height:1.6; margin:12px 0; }
+  #info_widget { width:100%; height:80px; border:0; border-radius:8px; margin-top:8px; background:#fff; }
 </style>
 </head>
 <body>
   <button id="gear" title="Settings" onclick="openSettings()">⚙</button>
   <h1>আজকের অনুপ্রেরণা</h1>
   <div class="card"><p id="msg">একটু অপেক্ষা করো…</p></div>
+  <div id="ticker" onclick="openInfo()"></div>
   <div id="status"></div>
   <div class="row">
     <button class="go" onclick="closeApp()">Start Studying</button>
     <button onclick="speak(currentText)">🔊 শুনুন</button>
+    <button onclick="openInfo()">📡 Info Center</button>
     <button onclick="closeApp()">Close</button>
   </div>
+
+  <!-- Info Center: latest news fetched from the web (Gemini + Google Search) -->
+  <div id="info"><div class="box">
+    <h1>📡 Info Center</h1>
+    <div id="info_time" class="muted"></div>
+    <div class="row" style="justify-content:flex-start">
+      <button class="go" onclick="recharge(false)">🔄 Recharge</button>
+      <button onclick="recharge(true)">⚡ Deep Recharge</button>
+      <button onclick="closeInfo()">← Back</button>
+    </div>
+    <div id="info_status" class="muted"></div>
+    <div id="info_body"></div>
+    <div class="warn">⚠ এগুলো ইন্টারনেট সার্চ থেকে AI-এর তৈরি সারাংশ, ভুল বা অনানুষ্ঠানিক তথ্য থাকতে পারে। তারিখ, রুটিন আর সিলেবাস অবশ্যই নিচের অফিসিয়াল সাইটে মিলিয়ে নাও।</div>
+    <h3 style="color:var(--accent)">Official websites</h3>
+    <ul id="official"></ul>
+    <iframe id="info_widget" sandbox="allow-popups allow-popups-to-escape-sandbox" style="display:none"></iframe>
+  </div></div>
 
   <!-- Settings screen (opens automatically the first time) -->
   <div id="panel"><div class="box">
     <h1>Settings</h1>
-    <label>Claude API key</label><input id="s_key" type="password" placeholder="sk-ant-...">
+    <label>AI provider</label>
+    <select id="s_provider" onchange="providerChanged()"><option value="gemini">Google Gemini (key starts with AIza...)</option><option value="claude">Anthropic Claude (key starts with sk-ant-...)</option></select>
+    <label>API key</label><input id="s_key" type="password" placeholder="AIza... or sk-ant-...">
     <label>Your name</label><input id="s_name" placeholder="যেমন: রাহিম">
     <label>Voice</label>
     <select id="s_voice"><option value="female">Female (Nabanita)</option><option value="male">Male (Pradeep)</option></select>
@@ -53,6 +86,10 @@
     <label>Model</label><input id="s_model">
     <label>Seconds to wait after login before starting</label><input id="s_delay" type="number" min="0">
     <label>Seconds before window auto-closes</label><input id="s_close" type="number" min="5">
+    <label>Info Center topic</label><input id="s_topic" placeholder="HSC 2028 (Bangladesh)">
+    <label>Auto-refresh info every (hours)</label><input id="s_infohrs" type="number" min="1">
+    <label>Use the latest info in messages</label>
+    <select id="s_useinfo"><option value="yes">Yes</option><option value="no">No</option></select>
     <div class="row">
       <button class="go" onclick="saveSettings()">Save &amp; Test</button>
       <button onclick="document.getElementById('panel').style.display='none'">Cancel</button>
@@ -76,22 +113,32 @@ function logErr(msg) {
 }
 
 /* ================= Settings ================= */
-const DEFAULTS = { apiKey:'', name:'', voice:'female', subjects:'', model:'claude-haiku-5-5', startDelay:5, windowSeconds:30 };
+const DEFAULT_MODEL = { gemini:'gemini-3.5-flash', claude:'claude-haiku-5-5' };
+const DEFAULTS = { provider:'gemini', apiKey:'', name:'', voice:'female', subjects:'', model:'', startDelay:5, windowSeconds:30,
+                   infoTopic:'HSC 2028 (Bangladesh)', infoHours:24, useInfo:'yes' };
 const cfg = Object.assign({}, DEFAULTS, LS.get('sm_cfg', {}));
+if (!cfg.model) cfg.model = DEFAULT_MODEL[cfg.provider];
 
 function openSettings() {
   stopCountdown();
-  $('s_key').value = cfg.apiKey; $('s_name').value = cfg.name; $('s_voice').value = cfg.voice;
+  $('s_provider').value = cfg.provider; $('s_key').value = cfg.apiKey; $('s_name').value = cfg.name; $('s_voice').value = cfg.voice;
   $('s_subj').value = cfg.subjects; $('s_model').value = cfg.model;
   $('s_delay').value = cfg.startDelay; $('s_close').value = cfg.windowSeconds;
+  $('s_topic').value = cfg.infoTopic; $('s_infohrs').value = cfg.infoHours; $('s_useinfo').value = cfg.useInfo;
   $('logbox').textContent = LS.get('sm_log', []).join('\n') || '(no errors)';
   $('panel').style.display = 'block';
 }
+// When you switch provider, swap the model name to that provider's default
+function providerChanged() {
+  const p = $('s_provider').value, m = $('s_model').value.trim();
+  if (!m || m === DEFAULT_MODEL.gemini || m === DEFAULT_MODEL.claude) $('s_model').value = DEFAULT_MODEL[p];
+}
 function saveSettings() {
   LS.set('sm_cfg', {
-    apiKey: $('s_key').value.trim(), name: $('s_name').value.trim(), voice: $('s_voice').value,
-    subjects: $('s_subj').value.trim(), model: $('s_model').value.trim() || DEFAULTS.model,
-    startDelay: Number($('s_delay').value) || 0, windowSeconds: Number($('s_close').value) || 30
+    provider: $('s_provider').value, apiKey: $('s_key').value.trim(), name: $('s_name').value.trim(), voice: $('s_voice').value,
+    subjects: $('s_subj').value.trim(), model: $('s_model').value.trim() || DEFAULT_MODEL[$('s_provider').value],
+    startDelay: Number($('s_delay').value) || 0, windowSeconds: Number($('s_close').value) || 30,
+    infoTopic: $('s_topic').value.trim() || DEFAULTS.infoTopic, infoHours: Number($('s_infohrs').value) || 24, useInfo: $('s_useinfo').value
   });
   location.reload();
 }
@@ -142,13 +189,18 @@ const STYLES = [
 function buildPrompt(history, style) {
   const h = new Date().getHours();
   const part = h < 12 ? 'morning' : h < 17 ? 'afternoon' : h < 21 ? 'evening' : 'night';
+  const info = getInfo();
+  const hl = (cfg.useInfo !== 'no' && info) ? infoHeadline(info) : '';
+  const infoLine = hl ? `
+Background news about ${cfg.infoTopic} (cached from a web search, may be unofficial): ${hl}
+You MAY refer to this briefly and only in general terms in about one message out of three. Never state exact dates, numbers or claims beyond that line, and never call it official.` : '';
   const recent = history.length ? history.map(m => '- ' + m).join('\n') : '(none yet)';
   return `Write ONE fresh motivational message in natural, correct Bangla (Bengali script) to push a student to start studying right now.
 
 Style for this message: ${style}
 Student's name: ${cfg.name || '(no name given)'}
 Student's subjects: ${cfg.subjects || '(none given)'}
-Time of day: ${part}
+Time of day: ${part}${infoLine}
 
 Rules:
 - 2 to 3 short sentences (a poem may be up to 4 short lines).
@@ -160,31 +212,34 @@ Rules:
 ${recent}`;
 }
 
-async function askClaude(history) {
+async function askAI(history) {
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 20000);   // give up after 20 s
+  const timer = setTimeout(() => ctrl.abort(), 25000);   // give up after 25 s
+  const prompt = buildPrompt(history, STYLES[Math.floor(Math.random() * STYLES.length)]);
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST', signal: ctrl.signal,
-      headers: {
-        'content-type': 'application/json',
-        'x-api-key': cfg.apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'   // needed to call the API from a web page
-      },
-      body: JSON.stringify({
-        model: cfg.model, max_tokens: 400, temperature: 1,
-        messages: [{ role: 'user', content: buildPrompt(history, STYLES[Math.floor(Math.random() * STYLES.length)]) }]
-      })
-    });
+    let url, headers, body;
+    if (cfg.provider === 'gemini') {
+      url = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(cfg.model) + ':generateContent';
+      headers = { 'content-type': 'application/json', 'x-goog-api-key': cfg.apiKey };
+      body = { contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 1, maxOutputTokens: 1500 } };
+    } else {
+      url = 'https://api.anthropic.com/v1/messages';
+      headers = { 'content-type': 'application/json', 'x-api-key': cfg.apiKey, 'anthropic-version': '2023-06-01',
+                  'anthropic-dangerous-direct-browser-access': 'true' };
+      body = { model: cfg.model, max_tokens: 400, temperature: 1, messages: [{ role: 'user', content: prompt }] };
+    }
+    const res = await fetch(url, { method: 'POST', signal: ctrl.signal, headers, body: JSON.stringify(body) });
     if (!res.ok) {
-      const err = new Error('API error ' + res.status + ': ' + (await res.text()).slice(0, 200));
+      const err = new Error('API error ' + res.status + ': ' + (await res.text()).slice(0, 300));
       err.fatal = res.status >= 400 && res.status < 500 && res.status !== 429 && res.status !== 408; // wrong key etc: don't retry
       throw err;
     }
     const data = await res.json();
-    const text = (data.content[0].text || '').trim().replace(/^["“”]+|["“”]+$/g, '');
-    if (!/[\u0980-\u09FF]/.test(text)) throw Object.assign(new Error('Reply was not Bangla'), { fatal: true });
+    let text = cfg.provider === 'gemini'
+      ? (data.candidates?.[0]?.content?.parts || []).filter(p => !p.thought).map(p => p.text || '').join('')
+      : (data.content?.[0]?.text || '');
+    text = text.trim().replace(/^["“”]+|["“”]+$/g, '');
+    if (!/[\u0980-\u09FF]/.test(text)) throw Object.assign(new Error('Reply was not Bangla: ' + text.slice(0, 80)), { fatal: true });
     if (history.includes(text)) throw new Error('Repeated an old message');
     return text;
   } finally { clearTimeout(timer); }
@@ -201,9 +256,9 @@ async function getMessage(history) {
   if (cfg.apiKey) {
     const deadline = Date.now() + 30000;       // wait up to 30 s for the internet to connect
     while (true) {
-      try { return { text: await askClaude(history), source: 'AI' }; }
+      try { return { text: await askAI(history), source: 'AI' }; }
       catch (e) {
-        logErr('Claude: ' + e.message);
+        logErr('AI: ' + e.message);
         if (e.fatal || Date.now() > deadline) break;
         $('status').textContent = 'ইন্টারনেটের জন্য অপেক্ষা করছি…';
         await sleep(3000);
@@ -212,6 +267,9 @@ async function getMessage(history) {
   } else logErr('No API key set - using offline message');
   return { text: offlineMessage(history), source: 'offline' };
 }
+
+/* Audio-only mode: page opened with #audio -> speak, then close itself */
+const AUDIO_ONLY = location.hash === '#audio';
 
 /* ================= Voice (browser's built-in Bangla voice) ================= */
 function whenVoicesReady() {
@@ -238,7 +296,126 @@ function speak(text) {
   u.onerror = e => { if (e.error !== 'canceled' && e.error !== 'interrupted') {
       logErr('Voice error: ' + e.error);
       $('status').textContent = 'শব্দ বন্ধ থাকলে “🔊 শুনুন” বোতাম চাপো।'; } };
+  u.onend = () => { if (AUDIO_ONLY) setTimeout(closeApp, 1500); };   // audio-only: close after speaking
   speechSynthesis.speak(u);
+}
+
+
+/* ================= Info Center (latest news via Gemini + Google Search) ================= */
+const OFFICIAL = [
+  ['NCTB (সিলেবাস ও বই)', 'https://nctb.gov.bd'],
+  ['Inter-Board (শিক্ষা বোর্ড)', 'https://educationboard.gov.bd'],
+  ['শিক্ষা মন্ত্রণালয়', 'https://moedu.gov.bd'],
+  ['মাধ্যমিক ও উচ্চ শিক্ষা অধিদপ্তর', 'https://dshe.gov.bd']
+];
+const TOPICS = [
+  { title: '📅 পরীক্ষার তারিখ, রুটিন ও সময়সূচি', focus: 'exam dates, routine, academic calendar, registration and form-fill-up timeline' },
+  { title: '📚 সিলেবাস ও শিক্ষাক্রম', focus: 'syllabus, short syllabus, curriculum changes and textbook updates' },
+  { title: '📢 অফিসিয়াল নোটিশ ও বিজ্ঞপ্তি', focus: 'official notices and circulars from NCTB, Education Boards, the Ministry of Education and DSHE' },
+  { title: '📝 পরীক্ষার কাঠামো ও নম্বর বণ্টন', focus: 'exam structure, marks distribution, question pattern, subjects and practical marks' }
+];
+const getInfo = () => LS.get('sm_info', null);
+const infoStale = () => { const i = getInfo(); return !i || (Date.now() - i.time) > cfg.infoHours * 3600 * 1000; };
+function infoHeadline(info) {
+  const first = ((info.sections && info.sections[0] && info.sections[0].text) || '').split('\n').map(s => s.trim()).filter(Boolean)[0] || '';
+  return first.replace(/^[-•*\s]+/, '');
+}
+function infoPrompt(focus, bullets) {
+  return `Search the web for the LATEST news and official updates about ${cfg.infoTopic}, focusing on: ${focus}.
+Today's date: ${new Date().toISOString().slice(0, 10)}.
+Rules:
+- Prefer official government / education board sources (NCTB, educationboard.gov.bd, moedu.gov.bd, dshe.gov.bd) and major news outlets.
+- If something comes only from unofficial sites, coaching pages or social media, label it "(অনানুষ্ঠানিক)".
+- If nothing official has been announced yet, say that clearly. Never invent dates, numbers or notices.
+- Write in simple Bangla.
+- Format: line 1 = one short headline sentence. Then ${bullets} lines, each starting with "- ", each mentioning the date when known.
+- No markdown other than the "- " bullets. No introduction, no closing remarks.`;
+}
+async function geminiGrounded(prompt, ms) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), ms);
+  try {
+    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(cfg.model) + ':generateContent', {
+      method: 'POST', signal: ctrl.signal,
+      headers: { 'content-type': 'application/json', 'x-goog-api-key': cfg.apiKey },
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], tools: [{ google_search: {} }],
+                             generationConfig: { temperature: 0.3, maxOutputTokens: 2500 } })
+    });
+    if (!res.ok) throw new Error('API error ' + res.status + ': ' + (await res.text()).slice(0, 300));
+    const data = await res.json();
+    const c = (data.candidates || [])[0] || {};
+    const text = ((c.content && c.content.parts) || []).filter(x => !x.thought).map(x => x.text || '').join('').trim();
+    if (!text) throw new Error('Empty answer from Gemini');
+    const gm = c.groundingMetadata || {};
+    const seen = new Set(), sources = [];
+    (gm.groundingChunks || []).forEach(ch => { const w = ch.web; if (w && w.uri && !seen.has(w.title || w.uri)) { seen.add(w.title || w.uri); sources.push({ title: w.title || 'source', uri: w.uri }); } });
+    return { text, sources, widget: (gm.searchEntryPoint && gm.searchEntryPoint.renderedContent) || '' };
+  } finally { clearTimeout(timer); }
+}
+// Quick recharge: one search, short summary
+async function rechargeQuick(ms) {
+  const r = await geminiGrounded(infoPrompt('exam dates, syllabus, curriculum and official notices', '4 to 6'), ms);
+  LS.set('sm_info', { time: Date.now(), mode: 'quick', widget: r.widget, sections: [{ title: '📌 সর্বশেষ আপডেট', text: r.text, sources: r.sources }] });
+}
+// Deep recharge: separate search for each topic
+async function rechargeDeep(progress) {
+  const sections = []; let widget = '';
+  for (let i = 0; i < TOPICS.length; i++) {
+    progress('গভীরভাবে খোঁজা হচ্ছে… (' + (i + 1) + '/' + TOPICS.length + ') ' + TOPICS[i].title);
+    try {
+      const r = await geminiGrounded(infoPrompt(TOPICS[i].focus, '3 to 5'), 60000);
+      sections.push({ title: TOPICS[i].title, text: r.text, sources: r.sources });
+      if (r.widget) widget = r.widget;
+    } catch (e) {
+      logErr('Info (' + TOPICS[i].title + '): ' + e.message);
+      sections.push({ title: TOPICS[i].title, text: '(এই অংশের তথ্য আনা যায়নি)', sources: [] });
+    }
+  }
+  if (sections.every(s => s.text.startsWith('(এই অংশ'))) throw new Error('All topics failed - see error log');
+  LS.set('sm_info', { time: Date.now(), mode: 'deep', widget, sections });
+}
+function updateTicker() {
+  const info = getInfo(), hl = info ? infoHeadline(info) : '';
+  $('ticker').textContent = hl ? '📌 ' + cfg.infoTopic + ': ' + hl : '';
+}
+function renderInfo() {
+  const info = getInfo(), body = $('info_body');
+  body.textContent = '';
+  const ul = $('official'); ul.textContent = '';
+  OFFICIAL.forEach(([name, url]) => { const li = document.createElement('li'), a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = name + ' — ' + url.replace('https://', ''); li.append(a); ul.append(li); });
+  if (!info) { $('info_time').textContent = 'এখনো কোনো তথ্য আনা হয়নি। “Recharge” চাপো।'; $('info_widget').style.display = 'none'; return; }
+  $('info_time').textContent = 'সর্বশেষ আপডেট: ' + new Date(info.time).toLocaleString() + (info.mode === 'deep' ? '  (Deep)' : '');
+  info.sections.forEach(s => {
+    const d = document.createElement('div'); d.className = 'sec';
+    const t = document.createElement('h3'); t.textContent = s.title;
+    const p = document.createElement('p'); p.textContent = s.text;
+    d.append(t, p);
+    const good = (s.sources || []).filter(x => /^https:\/\//.test(x.uri)).slice(0, 5);
+    if (good.length) {
+      const m = document.createElement('div'); m.className = 'src'; m.append('সূত্র: ');
+      good.forEach((x, i) => { const a = document.createElement('a'); a.href = x.uri; a.target = '_blank'; a.rel = 'noopener'; a.textContent = x.title; m.append(a); if (i < good.length - 1) m.append(' · '); });
+      d.append(m);
+    }
+    body.append(d);
+  });
+  const w = $('info_widget');
+  if (info.widget) { w.srcdoc = '<base target="_blank">' + info.widget; w.style.display = 'block'; } else w.style.display = 'none';
+}
+function openInfo() { stopCountdown(); renderInfo(); $('info').style.display = 'block'; }
+function closeInfo() { $('info').style.display = 'none'; }
+let infoBusy = false;
+async function recharge(deep) {
+  if (infoBusy) return;
+  if (cfg.provider !== 'gemini' || !cfg.apiKey) { $('info_status').textContent = 'Info Center চালাতে Settings-এ “Google Gemini” ও API key লাগবে।'; return; }
+  infoBusy = true;
+  $('info_status').textContent = 'ইন্টারনেট থেকে তথ্য আনা হচ্ছে… (১০-৩০ সেকেন্ড লাগতে পারে)';
+  try {
+    if (deep) await rechargeDeep(m => { $('info_status').textContent = m; }); else await rechargeQuick(60000);
+    $('info_status').textContent = '✅ আপডেট হয়েছে'; renderInfo(); updateTicker();
+  } catch (e) {
+    logErr('Info: ' + e.message);
+    $('info_status').textContent = '❌ তথ্য আনা যায়নি (' + e.message.slice(0, 90) + '). Settings-এর error log দেখো।';
+  } finally { infoBusy = false; }
 }
 
 /* ================= Countdown & closing ================= */
@@ -262,6 +439,12 @@ function closeApp() {
 (async function main() {
   if (!cfg.apiKey) openSettings();                      // first time: ask for key
   await sleep(cfg.startDelay * 1000);                   // wait a few seconds after login
+  // Refresh the info in the background of startup if it is older than infoHours
+  if (cfg.provider === 'gemini' && cfg.apiKey && navigator.onLine && infoStale()) {
+    $('status').textContent = cfg.infoTopic + ' তথ্য আপডেট হচ্ছে…';
+    try { await rechargeQuick(25000); } catch (e) { logErr('Info auto-refresh: ' + e.message); }
+    $('status').textContent = '';
+  }
   const history = LS.get('sm_history', []);
   const { text, source } = await getMessage(history);
   LS.set('sm_history', history.concat(text).slice(-30)); // keep last 30
@@ -269,10 +452,12 @@ function closeApp() {
 
   currentText = text;
   $('msg').textContent = text;                          // show text ...
+  updateTicker();
   speak(text);                                          // ... and speak at the same moment
   $('status').textContent = source === 'AI' ? '' : '(offline বার্তা)';
   if (!pickVoice()) $('status').textContent = 'বাংলা ভয়েস পাওয়া যায়নি — Microsoft Edge ব্যবহার করো।';
-  if ($('panel').style.display !== 'block') startCountdown();
+  if (AUDIO_ONLY) setTimeout(closeApp, 90000);          // safety: close even if speech fails
+  else if ($('panel').style.display !== 'block') startCountdown();
 })();
 </script>
 </body>
