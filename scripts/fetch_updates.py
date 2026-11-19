@@ -286,7 +286,7 @@ def discover_sources():
         "explain the source type. Do not include social-media profile URLs or login-only pages."
     )
     endpoint = ("https://generativelanguage.googleapis.com/v1beta/models/"
-                "gemini-2.5-flash:generateContent")
+                "gemini-3.8-flash:generateContent")
     payload = {"contents": [{"parts": [{"text": prompt}]}],
                "tools": [{"google_search": {}}],
                "generationConfig": {"temperature": 0.2, "maxOutputTokens": 1200}}
@@ -326,7 +326,7 @@ def main():
     discovered = discover_sources()
     extras = read_source_list(CUSTOM_FILE) + discovered
     sources = [collect_official(s) for s in OFFICIAL] + [collect_news()]
-    seen_urls = {s["url"] for s in OFFICIAL}
+    # OFFICIAL entries store multiple pages under "urls", not a single "url".\n    seen_urls = {url for source in OFFICIAL for url in source.get("urls", []) if url}
     for src in extras:
         url = str(src.get("url") or "").strip()
         if url and url not in seen_urls:
