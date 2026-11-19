@@ -377,8 +377,7 @@ def generate_ai_news(sources, previous):
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "tools": [{"google_search": {}}],
-        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 5000,
-                             "responseMimeType": "application/json"}
+        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 5000}
     }
     req = urllib.request.Request(endpoint, data=json.dumps(payload).encode(),
         headers={"Content-Type": "application/json", "x-goog-api-key": api_key})
