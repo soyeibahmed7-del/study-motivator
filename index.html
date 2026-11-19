@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Study Motivator</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#0f172a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -65,10 +67,27 @@
     <h1>📡 Info Center</h1>
     <div class="row" style="justify-content:flex-start">
       <button class="go" onclick="reloadFeed()">🔄 নোটিশ রিলোড</button>
+      <button onclick="toggleSourceManager()">⚙ উৎস পরিচালনা</button>
       <button onclick="closeInfo()">← Back</button>
     </div>
     <div id="feed_status" class="muted"></div>
     <div id="feed"></div>
+
+    <section id="source_manager" class="sec" style="display:none">
+      <h3>🔎 তথ্যের উৎস পরিচালনা</h3>
+      <p class="muted">শুধু HTTPS ওয়েবসাইট বা RSS feed যোগ করো। এখানে যোগ করা উৎস এই ব্রাউজারে থাকবে। নির্ধারিত GitHub সংগ্রহে যুক্ত করতে JSON ফাইল Export করে রিপোজিটরির sources.json আপডেট করতে হবে।</p>
+      <label for="source_name">উৎসের নাম</label><input id="source_name" placeholder="যেমন: শিক্ষা বোর্ড">
+      <label for="source_url">HTTPS ওয়েবসাইট / RSS URL</label><input id="source_url" type="url" placeholder="https://example.gov.bd/">
+      <label for="source_type">উৎসের ধরন</label>
+      <select id="source_type"><option value="website">ওয়েবসাইট</option><option value="rss">RSS feed</option></select>
+      <div class="row" style="justify-content:flex-start">
+        <button class="go" onclick="addManagedSource()">➕ উৎস যোগ করো</button>
+        <button onclick="exportManagedSources()">⬇ Export sources.json</button>
+      </div>
+      <div id="managed_sources" class="muted"></div>
+      <div class="muted">নোট: AI-আবিষ্কৃত উৎসগুলো GitHub Actions-এর GEMINI_API_KEY Secret থাকলে স্বয়ংক্রিয়ভাবে সংগ্রহ হবে। Facebook-এর ব্যক্তিগত/লগইন-নির্ভর পেজ এখানে সমর্থিত নয়।</div>
+    </section>
+
 
     <h3 style="color:var(--accent); margin-top:28px">🤖 AI সারাংশ (ঐচ্ছিক)</h3>
     <div class="muted">এতে Gemini-র Google Search লাগে, যা ফ্রি অ্যাকাউন্টে নাও চলতে পারে।</div>
@@ -539,6 +558,62 @@ async function reloadFeed() {
   const ok = await loadFeed();
   renderFeed(); updateTicker();
   if (!ok) $('feed_status').textContent = (feed ? '❌ নতুন ফাইল আনা যায়নি, পুরনো কপি দেখাচ্ছি।' : '❌ updates.json পাওয়া যায়নি। GitHub-এ Actions একবার চালাতে হবে (গাইড দেখো)।');
+}
+
+
+/* ================= Source Manager ================= */
+let managedSources = LS.get('sm_sources', []);
+async function toggleSourceManager() {
+  const panel = $('source_manager');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+  if (panel.style.display === 'block') {
+    try {
+      const r = await fetch('./sources.json', {cache:'no-store'});
+      if (r.ok) {
+        const remote = await r.json();
+        const merged = [...(Array.isArray(remote) ? remote : []), ...managedSources];
+        const seen = new Set();
+        managedSources = merged.filter(s => s && s.url && !seen.has(s.url) && seen.add(s.url));
+      }
+    } catch (e) { logErr('Source config: ' + e.message); }
+    renderManagedSources();
+  }
+}
+function renderManagedSources() {
+  const box = $('managed_sources'); box.textContent = '';
+  if (!managedSources.length) { box.textContent = 'এখনো কোনো অতিরিক্ত উৎস যোগ করা হয়নি।'; return; }
+  managedSources.forEach((s, i) => {
+    const row = document.createElement('div'); row.className = 'feeditem';
+    const label = document.createElement('span'); label.textContent = (i + 1) + '. ' + s.name + ' — ' + s.url;
+    row.append(label);
+    if (s.local) {
+      const del = document.createElement('button'); del.textContent = 'বাদ দাও'; del.style.marginLeft = '8px';
+      del.onclick = () => { managedSources.splice(i, 1); LS.set('sm_sources', managedSources.filter(x => x.local)); renderManagedSources(); };
+      row.append(del);
+    }
+    box.append(row);
+  });
+}
+function addManagedSource() {
+  const name = $('source_name').value.trim(), url = $('source_url').value.trim(), type = $('source_type').value;
+  try {
+    const u = new URL(url);
+    if (!name || u.protocol !== 'https:' || u.username || u.password) throw new Error('নাম এবং বৈধ HTTPS URL দিতে হবে।');
+    if (managedSources.some(s => s.url === u.href)) throw new Error('এই উৎসটি আগে থেকেই আছে।');
+    managedSources.push({id:'manual-' + Date.now(), name, url:u.href, type, kind:'custom', local:true});
+    LS.set('sm_sources', managedSources.filter(s => s.local));
+    $('source_name').value = ''; $('source_url').value = '';
+    renderManagedSources();
+  } catch (e) { $('managed_sources').textContent = e.message || 'URL সঠিক নয়।'; }
+}
+function exportManagedSources() {
+  const clean = managedSources.map(({local, ...s}) => s);
+  const blob = new Blob([JSON.stringify(clean, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob), a = document.createElement('a');
+  a.href = url; a.download = 'sources.json'; a.click(); URL.revokeObjectURL(url);
+}
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(e => logErr('PWA: ' + e.message)));
 }
 
 /* ================= Countdown & closing ================= */
