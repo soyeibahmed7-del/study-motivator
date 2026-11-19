@@ -437,7 +437,9 @@ def main():
         previous = json.loads(OUT.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         previous = {}
-    discovered = discover_sources()
+    # Avoid spending Gemini quota on source discovery during every scheduled run.
+    # AI news generation already uses Google Search grounding; reuse previously saved sources.
+    discovered = read_source_list(DISCOVERED_FILE)
     extras = read_source_list(CUSTOM_FILE) + discovered
     sources = [collect_official(s) for s in OFFICIAL] + [collect_news()]
     # OFFICIAL entries store multiple pages under "urls", not a single "url".
