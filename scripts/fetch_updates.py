@@ -322,7 +322,122 @@ def discover_sources():
     return read_source_list(DISCOVERED_FILE)
 
 
+
+def generate_ai_news(sources, previous):
+    """Create one source-grounded Bangla daily briefing and reuse it for the rest of the UTC day."""
+    today = datetime.now(timezone.utc).date().isoformat()
+    cached = previous.get("ai_news") if isinstance(previous, dict) else None
+    if isinstance(cached, dict) and cached.get("generated_date") == today and cached.get("items"):
+        print("AI news: reusing today's cached briefing")
+        return cached
+
+    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    if not api_key:
+        print("AI news skipped: GEMINI_API_KEY secret is not configured")
+        return cached if isinstance(cached, dict) else {
+            "generated_date": today, "status": "unavailable", "items": [],
+            "message": "AI API key is not configured"
+        }
+
+    candidates = []
+    allowed_urls = set()
+    for source in sources:
+        if source.get("status") != "ok":
+            continue
+        for item in source.get("items", []):
+            url = str(item.get("url") or "").strip()
+            title = str(item.get("title") or "").strip()
+            if valid_source_url(url) and title:
+                allowed_urls.add(url)
+                candidates.append({
+                    "title": title[:220], "url": url,
+                    "publisher": str(item.get("source") or source.get("name") or "")[:120],
+                    "date": str(item.get("date") or "")[:40],
+                    "source_kind": source.get("kind", "website")
+                })
+    candidates = candidates[:35]
+    prompt = (
+        "আজকের তারিখ " + today + " (UTC)। বাংলাদেশের HSC 2028 শিক্ষার্থী ও একাদশ-দ্বাদশ শ্রেণির "
+        "জন্য সাম্প্রতিক, বাস্তব শিক্ষা-সংবাদ নিয়ে বাংলায় একটি দৈনিক briefing তৈরি করো। "
+        "নিচের candidate তথ্যগুলো সূত্রসহ দেওয়া হলো; Google Search দিয়ে সাম্প্রতিকতা ও তথ্য যাচাই করো। "
+        "শুধু সত্যিই গুরুত্বপূর্ণ/নতুন বিষয় নাও; পুরনো বা অপ্রাসঙ্গিক খবর বাদ দাও। "
+        "কোনো ঘোষণা না থাকলে সেটি ঘোষণা হয়েছে বলে লিখবে না। অনুমানকে নিশ্চিত তথ্য হিসেবে লিখবে না। "
+        "প্রতিটি item-এ title, category, published_at, publisher, what_happened, why_it_matters, "
+        "student_action, certainty এবং source_urls থাকবে। প্রতিটি ব্যাখ্যা বিস্তারিত কিন্তু সহজ বাংলায় "
+        "লিখবে; কী ঘটেছে, কেন গুরুত্বপূর্ণ, HSC 2028 শিক্ষার্থীর ওপর সম্ভাব্য প্রভাব এবং করণীয় আলাদা করবে। "
+        "source_urls-এ কেবল candidate বা Google Search-এ পাওয়া মূল HTTPS article URL দেবে। "
+        "কোনো URL বানাবে না। Candidate URLs: " + json.dumps(candidates, ensure_ascii=False) +
+        "\nReturn ONLY valid JSON in this schema: "
+        '{"items":[{"title":"...","category":"...","published_at":"...","publisher":"...",'
+        '"what_happened":"...","why_it_matters":"...","student_action":"...",'
+        '"certainty":"নিশ্চিত/প্রাথমিক/যাচাই প্রয়োজন","source_urls":["https://..."]}]}'
+    )
+    endpoint = ("https://generativelanguage.googleapis.com/v1beta/models/"
+                "gemini-3.8-flash:generateContent")
+    payload = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "tools": [{"google_search": {}}],
+        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 5000,
+                             "responseMimeType": "application/json"}
+    }
+    req = urllib.request.Request(endpoint, data=json.dumps(payload).encode(),
+        headers={"Content-Type": "application/json", "x-goog-api-key": api_key})
+    try:
+        with urllib.request.urlopen(req, timeout=90) as response:
+            data = json.loads(response.read().decode("utf-8"))
+        candidate = (data.get("candidates") or [{}])[0]
+        answer = "".join(part.get("text", "") for part in
+                         ((candidate.get("content") or {}).get("parts") or [])
+                         if isinstance(part, dict))
+        start, end = answer.find("{"), answer.rfind("}")
+        if start < 0 or end <= start:
+            raise ValueError("Gemini did not return JSON")
+        parsed = json.loads(answer[start:end + 1])
+        grounding = (((candidate.get("groundingMetadata") or {}).get("groundingChunks")) or [])
+        grounding_urls = set()
+        for chunk in grounding:
+            web = chunk.get("web") or {}
+            url = str(web.get("uri") or "").strip()
+            if valid_source_url(url):
+                grounding_urls.add(url)
+        allowed_urls.update(grounding_urls)
+        items = []
+        for item in parsed.get("items", [])[:8]:
+            if not isinstance(item, dict):
+                continue
+            links = []
+            for url in item.get("source_urls", []):
+                url = str(url).strip()
+                if url in allowed_urls and url not in links:
+                    links.append(url)
+            if not links:
+                continue
+            clean = {}
+            for key in ("title", "category", "published_at", "publisher", "what_happened",
+                        "why_it_matters", "student_action", "certainty"):
+                clean[key] = str(item.get(key) or "").strip()[:1800]
+            if clean["title"] and clean["what_happened"] and clean["why_it_matters"]:
+                clean["source_urls"] = links[:4]
+                items.append(clean)
+        if not items:
+            raise ValueError("No AI news items with verified source links")
+        result = {"generated_date": today, "generated_at": datetime.now(timezone.utc).isoformat(),
+                  "status": "ok", "items": items}
+        print("AI news generated: " + str(len(items)) + " source-linked briefings")
+        return result
+    except Exception as e:
+        print("AI news generation failed: " + type(e).__name__ + ": " + str(e)[:250])
+        if isinstance(cached, dict) and cached.get("items"):
+            return cached
+        return {"generated_date": today, "status": "unavailable", "items": [],
+                "message": "আজ AI briefing তৈরি করা যায়নি; মূল উৎসের খবর নিচে আছে।"}
+
+
 def main():
+    try:
+        previous = json.loads(OUT.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        previous = {}
     discovered = discover_sources()
     extras = read_source_list(CUSTOM_FILE) + discovered
     sources = [collect_official(s) for s in OFFICIAL] + [collect_news()]
@@ -333,7 +448,9 @@ def main():
         if url and url not in seen_urls:
             seen_urls.add(url)
             sources.append(collect_extra_source(src))
-    data = {"generated_at": datetime.now(timezone.utc).isoformat(), "sources": sources}
+    ai_news = generate_ai_news(sources, previous)
+    data = {"generated_at": datetime.now(timezone.utc).isoformat(),
+            "sources": sources, "ai_news": ai_news}
     OUT.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
     for s in sources:
         print(f"{s['id']:8} {s['status']:6} items={len(s['items'])} {s.get('error', '')[:100]}")
