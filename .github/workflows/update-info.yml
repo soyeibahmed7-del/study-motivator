@@ -2,25 +2,25 @@ name: Update HSC info
 
 on:
   schedule:
-    - cron: "30 2 * * *"   # every day at 02:30 UTC = 08:30 Bangladesh time
-  workflow_dispatch:        # lets you press "Run workflow" by hand
+    - cron: "13 */5 * * *" # every 5 hours (GitHub may delay scheduled runs)
+  workflow_dispatch:
 
 permissions:
-  contents: write           # needed to save updates.json into the repository
+  contents: write
 
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Collect notices and news
+      - name: Collect notices, news and sources
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python3 scripts/fetch_updates.py
-
-      - name: Save updates.json
+      - name: Save collected information
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add updates.json
-          git diff --cached --quiet || git commit -m "Update HSC info"
+          git add updates.json discovered_sources.json
+          git diff --cached --quiet || git commit -m "Refresh HSC information"
           git push
