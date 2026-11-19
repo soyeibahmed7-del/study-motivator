@@ -1,14 +1,64 @@
 {
- "generated_at": "2026-11-19T02:30:00.492252+00:00",
+ "generated_at": "2026-11-19T02:55:43.292732+00:00",
  "sources": [
   {
    "id": "nctb",
    "name": "NCTB (জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড)",
    "kind": "official",
    "url": "https://nctb.gov.bd/",
-   "status": "error",
-   "error": "https://nctb.gov.bd/: URLError: <urlopen error timed out> | https://nctb.gov.bd/site/view/notices: URLError: <urlopen error timed out>",
-   "items": []
+   "status": "ok",
+   "items": [
+    {
+     "title": "উচ্চ মাধ্যমিক",
+     "url": "https://nctb.gov.bd/pages/files/6922dbc6933eb65569e0c702",
+     "match": "strong"
+    },
+    {
+     "title": "২০২৬-২৭ শিক্ষাবর্ষের উচ্চ মাধ্যমিক ও সমমান শ্রেণির জন্য নির্ধারিত পাঠ্যসূচি ০১-১০-২০২৬ সাধারণ",
+     "url": "https://nctb.gov.bd/pages/notices/২০২৬-সালের-শিক্ষাবর্ষের-উচ্চ-মাধ্যমিক-ও-সমমান-শ্রেণীর-জন্য-নির্ধারিত-পাঠ্যসূচি-2yvrhr-6abf70ae2e520f8fc8858d74",
+     "match": "strong"
+    },
+    {
+     "title": "২০২৬-২০২৭ শিক্ষাবর্ষের একাদশ-দ্বাদশ শ্রেণির পাঠ্যপুস্তকসমূহে এনসিটিবি'র জলছাপযুক্ত নিরাপত্তা কাগজসহ মুদ্রণ ও বাঁধাই করে বাজারজাত নিশ্চিত করা সংক্রান্ত গণবিজ্ঞপ্তি।[2883] ২৪-০৯-২০২৬ সাধারণ",
+     "url": "https://nctb.gov.bd/pages/notices/গণবিজ্ঞপ্তি-2883-yivprg-6abdcf4082c5c3ca73ec8150",
+     "match": "strong"
+    },
+    {
+     "title": "জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (এনসিটিবি)",
+     "url": "https://nctb.gov.bd/",
+     "match": "related"
+    },
+    {
+     "title": "বিভিন্ন পরীক্ষার পুনর্বিন্যাসকৃত পাঠ্যসূচি ও নবম দশম শ্রেণির বিভিন্ন বিষয়ের প্রশ্নের ধরন",
+     "url": "https://nctb.gov.bd/pages/static-pages/6922dff5933eb65569e24d31",
+     "match": "related"
+    },
+    {
+     "title": "জেএসসি পরীক্ষার মান বন্টন ও নমুনা প্রশ্ন",
+     "url": "https://nctb.gov.bd/pages/static-pages/6922dda1933eb65569e15b1d",
+     "match": "related"
+    },
+    {
+     "title": "নীতিমালা ও নোটিশ",
+     "url": "https://nctb.gov.bd/pages/publications",
+     "match": "related"
+    },
+    {
+     "title": "প্রাথমিক শিক্ষাক্রম মূল্যায়ন",
+     "url": "https://nctb.gov.bd/pages/files/6922dbd3933eb65569e0cd02",
+     "match": "related"
+    },
+    {
+     "title": "আর্কাইভ নোটিশ",
+     "url": "https://nctb.gov.bd/pages/notices?archived=true",
+     "match": "related"
+    },
+    {
+     "title": "সকল নোটিশ দেখুন",
+     "url": "https://nctb.gov.bd/pages/notices",
+     "match": "related"
+    }
+   ]
   },
   {
    "id": "boards",
@@ -16,7 +66,7 @@
    "kind": "official",
    "url": "https://educationboard.gov.bd/",
    "status": "error",
-   "error": "https://educationboard.gov.bd/: URLError: <urlopen error [Errno 111] Connection refused> | https://educationboard.gov.bd/site/view/notices: URLError: <urlopen error [Errno 111] Connection refused>",
+   "error": "https://educationboard.gov.bd/: URLError: <urlopen error [Errno 111] Connection refused> | https://educationboard.gov.bd/site/view/notices: URLError: <urlopen error [Errno 111] Connection refused> | jina(https://educationboard.gov.bd/): HTTPError: HTTP Error 422: Unprocessable Entity | jina(https://",
    "items": []
   },
   {
@@ -156,6 +206,12 @@
      "source": "এখন টিভি"
     },
     {
+     "title": "এইচএসসি ও সমমানের পরীক্ষার ফল প্রকাশ ২৯ অক্টোবর - বাংলা টেলিগ্রাফ",
+     "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBTU2FkbE9JUFNwRTUwTmQ5TWhQVEVuUElIRFZjZHJ0VmdRVnBnTFRnMXBUMVR1NThnbG5OWWpsb0s5RjFzNDN0dXBIbkcxZENQSGxTdmJ3cnVsQQ?oc=5",
+     "date": "2026-10-25T07:00:00+00:00",
+     "source": "বাংলা টেলিগ্রাফ"
+    },
+    {
      "title": "এসএসসির টেস্ট পরীক্ষার তারিখ ঘোষণা, শিক্ষা বোর্ডের যে যে নির্দেশনা - প্রথম আলো",
      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9DelN6bnVtdTNNUXZ0ZmF4elFUamlPUWRvbmw0QXdhaFI2SG80MXNMMjhTVmVKOGdKMzR3R1J2RjRneDJMbGVyU2NLdUVXOG5GbE0ycGpRMFBVRGtGLXNyOEowT2VNNlV6WDNB0gF4QVVfeXFMUF92MzVGLUg5SktGc094NEwxRzBseXJmVnRUYWo3czJidVAtaHZLZlBKbVBjTERwMm9UWVB5VHZyVzF2TzJfOWZrbWtlcTM5RE9fakdFaVpUSmVpSXhGT1VDQzVfTXVOTDlOb2llQzh1eHB2aDdlX01w?oc=5",
      "date": "2026-10-22T07:00:00+00:00",
@@ -166,12 +222,6 @@
      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9uYzhTNHg5bDBqeHVwbm53TXpURFU4c1Myd05TWXB4NTJ1LTdHanNLdGR6NS11OW0xVm1fbjNhMmhTWWd5NzAtOUdIQkRpNTItYlBZWTZOaFhKbGNIM09kalFjZTRfMEw0dE130gF4QVVfeXFMTXF0MkZnYk45VzdDRWdfLUk1UnpGUWxWZXdlOXRSNGVOVTg3N1JDNGtLTGVZcDF5aXJ3OFBtbEpMaVpSZ0M5LXcxMWVLeDJPNl8zbkxJdWswX0VoVmxpUGRna2NIYngzU1lacDBqd19Ed2hWUW9weE5I?oc=5",
      "date": "2026-10-19T07:00:00+00:00",
      "source": "প্রথম আলো"
-    },
-    {
-     "title": "ঢাকা বোর্ডে এসএসসি পাস কারা বৃত্তি পাবে, তালিকা প্রকাশ - bdnews24.com",
-     "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBfQy1QMUo5Yk9GcWN5ekZEdERzcktiQjJydTdkeWk1Mm52NXdCSWQ3WTdzWUNla0RDUF84czZxckpqSHJ1Y3JiNmJSR3RXdVpaekdxTi1VYnpTVXZuYkE?oc=5",
-     "date": "2026-10-19T07:00:00+00:00",
-     "source": "bdnews24.com"
     }
    ]
   }
