@@ -524,7 +524,7 @@ function renderFeed() {
   feed.sources.forEach(src => {
     const d = document.createElement('div'); d.className = 'sec';
     const t = document.createElement('h3');
-    t.textContent = src.name + (src.kind === 'news' ? ' — সংবাদ (অনানুষ্ঠানিক)' : '');
+    t.textContent = src.name + (src.kind === 'news' ? ' — সংবাদ (অনানুষ্ঠানিক)' : src.kind === 'discovered' ? ' — AI-আবিষ্কৃত উৎস (যাচাই করে নাও)' : '');
     d.append(t);
     if (src.status !== 'ok') {
       const p = document.createElement('p'); p.className = 'muted';
