@@ -326,7 +326,8 @@ def main():
     discovered = discover_sources()
     extras = read_source_list(CUSTOM_FILE) + discovered
     sources = [collect_official(s) for s in OFFICIAL] + [collect_news()]
-    # OFFICIAL entries store multiple pages under "urls", not a single "url".\n    seen_urls = {url for source in OFFICIAL for url in source.get("urls", []) if url}
+    # OFFICIAL entries store multiple pages under "urls", not a single "url".
+    seen_urls = {url for source in OFFICIAL for url in source.get("urls", []) if url}
     for src in extras:
         url = str(src.get("url") or "").strip()
         if url and url not in seen_urls:
