@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-11-19T08:30:31.144277+00:00",
+ "generated_at": "2026-11-19T11:04:38.656120+00:00",
  "sources": [
   {
    "id": "nctb",
-   "name": "NCTB (জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড) — web.archive.org আর্কাইভ কপি, পুরনো হতে পারে",
+   "name": "NCTB (জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড) — r.jina.ai দিয়ে আনা",
    "kind": "official",
    "url": "https://nctb.gov.bd/",
    "status": "ok",
@@ -14,18 +14,8 @@
      "match": "strong"
     },
     {
-     "title": "২০২৬-২৭ শিক্ষাবর্ষের উচ্চ মাধ্যমিক ও সমমান শ্রেণির জন্য নির্ধারিত পাঠ্যসূচি ০১-১০-২০২৬ সাধারণ",
-     "url": "https://nctb.gov.bd/pages/notices/২০২৬-সালের-শিক্ষাবর্ষের-উচ্চ-মাধ্যমিক-ও-সমমান-শ্রেণীর-জন্য-নির্ধারিত-পাঠ্যসূচি-2yvrhr-6abf70ae2e520f8fc8858d74",
-     "match": "strong"
-    },
-    {
-     "title": "২০২৬-২০২৭ শিক্ষাবর্ষের একাদশ-দ্বাদশ শ্রেণির পাঠ্যপুস্তকসমূহে এনসিটিবি'র জলছাপযুক্ত নিরাপত্তা কাগজসহ মুদ্রণ ও বাঁধাই করে বাজারজাত নিশ্চিত করা সংক্রান্ত গণবিজ্ঞপ্তি।[2883] ২৪-০৯-২০২৬ সাধারণ",
-     "url": "https://nctb.gov.bd/pages/notices/গণবিজ্ঞপ্তি-2883-yivprg-6abdcf4082c5c3ca73ec8150",
-     "match": "strong"
-    },
-    {
-     "title": "উচ্চ মাধ্যমিক",
-     "url": "https://nctb.gov.bd/site/files/e977a7e5-be01-4c42-99ac-bc966d334ae7/-",
+     "title": "২০২৬-২৭ শিক্ষাবর্ষের উচ্চ মাধ্যমিক ও সমমান শ্রেণির জন্য নির্ধারিত পাঠ্যসূচি ০১-১০-২০২৬**সাধারণ**",
+     "url": "https://nctb.gov.bd/pages/notices/%E0%A7%A8%E0%A7%A6%E0%A7%A8%E0%A7%AC-%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A7%87%E0%A6%B0-%E0%A6%B6%E0%A6%BF%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A6%BE%E0%A6%AC%E0%A6%B0%E0%A7%8D%E0%A6%B7%E0%A7%87%E0%A6%B0-%E0%A6%89%E0%A6%9A%E0%A7%8D%E0%A6%9A-%E0%A6%AE%E0%A6%BE%E0%A6%A7%E0%A7%8D%E0%A6%AF%E0%A6%AE%E0%A6%BF%E0%A6%95-%E0%A6%93-%E0%A6%B8%E0%A6%AE%E0%A6%AE%E0%A6%BE%E0%A6%A8-%E0%A6%B6%E0%A7%8D%E0%A6%B0%E0%A7%87%E0%A6%A3%E0%A7%80%E0%A6%B0-%E0%A6%9C%E0%A6%A8%E0%A7%8D%E0%A6%AF-%E0%A6%A8%E0%A6%BF%E0%A6%B0%E0%A7%8D%E0%A6%A7%E0%A6%BE%E0%A6%B0%E0%A6%BF%E0%A6%A4-%E0%A6%AA%E0%A6%BE%E0%A6%A0%E0%A7%8D%E0%A6%AF%E0%A6%B8%E0%A7%82%E0%A6%9A%E0%A6%BF-2yvrhr-6abf70ae2e520f8fc8858d74",
      "match": "strong"
     },
     {
@@ -56,6 +46,16 @@
     {
      "title": "আর্কাইভ নোটিশ",
      "url": "https://nctb.gov.bd/pages/notices?archived=true",
+     "match": "related"
+    },
+    {
+     "title": "সকল নোটিশ দেখুন",
+     "url": "https://nctb.gov.bd/pages/notices",
+     "match": "related"
+    },
+    {
+     "title": "টেন্ডার নোটিশ",
+     "url": "https://nctb.gov.bd/pages/tenders",
      "match": "related"
     }
    ]
@@ -151,6 +151,12 @@
    "status": "ok",
    "items": [
     {
+     "title": "২০২৮ খ্রিষ্টাব্দে প্রাথমিক শিক্ষাক্রম পরিমার্জনের পরিকল্পনা রয়েছে - Dainik Shiksha",
+     "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOMmxlZDlRUktMYWFvejFmeS1uV0RnV3M4WXdGeC1pbTFmUEFZbUhPeUVqQ0lJd1ZSY1pobHdMcDBMQjFIZm43dTNtV2FRemRnSjc3dVI2TVlHTmhOQTQ4cUNpS180TlFOTzFlTGtzVEVHRW9kWkt4SUJ3LWRHQTc4bkl5d0xhLWdDNWMzYm9ZNzNWcFp4UHdYaHRFYmgyOGJQdWdn?oc=5",
+     "date": "2026-11-18T13:04:10+00:00",
+     "source": "Dainik Shiksha"
+    },
+    {
      "title": "এইচএসসির সাপ্লিমেন্টারি পরীক্ষার সময়সূচি প্রকাশ - দ্য ডেইলি স্টার বাংলা",
      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFA2RTkyZGVJbWJCcUNGLVBDWjdtdE9TV3UtYjhaOXVlclZNM0xSY1FqcjBITlYwUXZmTEg0WWYtZV8zdFowTmtCT3p5QlBSOUF0N3F6UmJCRlk2Yzg5RURGRkRNMlZvdnk1Q1dZaw?oc=5",
      "date": "2026-11-14T22:02:14+00:00",
@@ -181,10 +187,10 @@
      "source": "কালবেলা"
     },
     {
-     "title": "শিক্ষায় প্রযুক্তির সমন্বয় ঘটিয়ে শিক্ষার্থীদের বিজ্ঞানমনস্ক করে তুলতে হবে: শিক্ষামন্ত্রী - Bangladesh Sangbad Sangstha (BSS)",
-     "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1DSERkcWtSRXZpOUNockowMVN2ZkFubVdCZ3ZPZWhmeUpkZFJMR2ZwR3oyZUUtOWhpdDZMcGRodGFCSUFjTXFTeGFRVDY0LWZKS3pHTng3M2ptQQ?oc=5",
-     "date": "2026-10-31T07:00:00+00:00",
-     "source": "Bangladesh Sangbad Sangstha (BSS)"
+     "title": "যে হাসপাতালের পাশে বাবার চায়ের দোকান, সেখানেই চিকিৎসক হতে চান মেয়ে - dhakapost.com",
+     "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1VT2xWM3VKYWloTEMtZzkwS0h6ano2dWc4eV85ZzZnTlBqV25PSTg1MmMyRWh0bVBGMmhBRncyaFcyTGZGdExSOUhyR0RiLWVkcEtJ?oc=5",
+     "date": "2026-11-04T08:00:00+00:00",
+     "source": "dhakapost.com"
     },
     {
      "title": "এইচএসসির ফল প্রকাশ ৩১ অক্টোবর: শিক্ষামন্ত্রী - বাংলা টেলিগ্রাফ",
@@ -199,6 +205,12 @@
      "source": "এখন টিভি"
     },
     {
+     "title": "এইচএসসি ও সমমানের পরীক্ষার ফল প্রকাশ ২৯ অক্টোবর - বাংলা টেলিগ্রাফ",
+     "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBTU2FkbE9JUFNwRTUwTmQ5TWhQVEVuUElIRFZjZHJ0VmdRVnBnTFRnMXBUMVR1NThnbG5OWWpsb0s5RjFzNDN0dXBIbkcxZENQSGxTdmJ3cnVsQQ?oc=5",
+     "date": "2026-10-25T07:00:00+00:00",
+     "source": "বাংলা টেলিগ্রাফ"
+    },
+    {
      "title": "এসএসসির টেস্ট পরীক্ষার তারিখ ঘোষণা, শিক্ষা বোর্ডের যে যে নির্দেশনা - প্রথম আলো",
      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9DelN6bnVtdTNNUXZ0ZmF4elFUamlPUWRvbmw0QXdhaFI2SG80MXNMMjhTVmVKOGdKMzR3R1J2RjRneDJMbGVyU2NLdUVXOG5GbE0ycGpRMFBVRGtGLXNyOEowT2VNNlV6WDNB0gF4QVVfeXFMUF92MzVGLUg5SktGc094NEwxRzBseXJmVnRUYWo3czJidVAtaHZLZlBKbVBjTERwMm9UWVB5VHZyVzF2TzJfOWZrbWtlcTM5RE9fakdFaVpUSmVpSXhGT1VDQzVfTXVOTDlOb2llQzh1eHB2aDdlX01w?oc=5",
      "date": "2026-10-22T07:00:00+00:00",
@@ -209,18 +221,6 @@
      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9uYzhTNHg5bDBqeHVwbm53TXpURFU4c1Myd05TWXB4NTJ1LTdHanNLdGR6NS11OW0xVm1fbjNhMmhTWWd5NzAtOUdIQkRpNTItYlBZWTZOaFhKbGNIM09kalFjZTRfMEw0dE130gF4QVVfeXFMTXF0MkZnYk45VzdDRWdfLUk1UnpGUWxWZXdlOXRSNGVOVTg3N1JDNGtLTGVZcDF5aXJ3OFBtbEpMaVpSZ0M5LXcxMWVLeDJPNl8zbkxJdWswX0VoVmxpUGRna2NIYngzU1lacDBqd19Ed2hWUW9weE5I?oc=5",
      "date": "2026-10-19T07:00:00+00:00",
      "source": "প্রথম আলো"
-    },
-    {
-     "title": "ঢাকা বোর্ডে এসএসসি পাস কারা বৃত্তি পাবে, তালিকা প্রকাশ - bdnews24.com",
-     "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBfQy1QMUo5Yk9GcWN5ekZEdERzcktiQjJydTdkeWk1Mm52NXdCSWQ3WTdzWUNla0RDUF84czZxckpqSHJ1Y3JiNmJSR3RXdVpaekdxTi1VYnpTVXZuYkE?oc=5",
-     "date": "2026-10-19T07:00:00+00:00",
-     "source": "bdnews24.com"
-    },
-    {
-     "title": "আলিম পরীক্ষা ২০২৮-এর নম্বর বণ্টনসহ পূর্ণাঙ্গ পাঠ্যসূচি প্রকাশ - শিক্ষা সংবাদ",
-     "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE8tcFA2UnJzSXRISjhmWjBnYm1tV2REWFM5V0R2S1Y3VS1YaC16N0tucS1lN214R2dKOHRSYzQ0OEROSHc3TzgtdTl6bUF2SlFabG9Z?oc=5",
-     "date": "2026-10-19T07:00:00+00:00",
-     "source": "শিক্ষা সংবাদ"
     }
    ]
   },
