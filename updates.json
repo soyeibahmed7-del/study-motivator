@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-19T06:21:05.526694+00:00",
+ "generated_at": "2026-11-19T08:20:02.325693+00:00",
  "sources": [
   {
    "id": "nctb",
@@ -62,10 +62,11 @@
   },
   {
    "id": "boards",
-   "name": "Inter-Board (শিক্ষা বোর্ড) — web.archive.org আর্কাইভ কপি, পুরনো হতে পারে",
+   "name": "Inter-Board (শিক্ষা বোর্ড)",
    "kind": "official",
    "url": "https://educationboard.gov.bd/",
-   "status": "ok",
+   "status": "error",
+   "error": "https://educationboard.gov.bd/: URLError: <urlopen error [Errno 111] Connection refused> | https://educationboard.gov.bd/site/view/notices: URLError: <urlopen error [Errno 111] Connection refused> | jina(https://educationboard.gov.bd/): HTTPError: HTTP Error 422: Unprocessable Entity | jina(https://",
    "items": []
   },
   {
@@ -205,6 +206,12 @@
      "source": "এখন টিভি"
     },
     {
+     "title": "এইচএসসি ও সমমানের পরীক্ষার ফল প্রকাশ ২৯ অক্টোবর - বাংলা টেলিগ্রাফ",
+     "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBTU2FkbE9JUFNwRTUwTmQ5TWhQVEVuUElIRFZjZHJ0VmdRVnBnTFRnMXBUMVR1NThnbG5OWWpsb0s5RjFzNDN0dXBIbkcxZENQSGxTdmJ3cnVsQQ?oc=5",
+     "date": "2026-10-25T07:00:00+00:00",
+     "source": "বাংলা টেলিগ্রাফ"
+    },
+    {
      "title": "এসএসসির টেস্ট পরীক্ষার তারিখ ঘোষণা, শিক্ষা বোর্ডের যে যে নির্দেশনা - প্রথম আলো",
      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9DelN6bnVtdTNNUXZ0ZmF4elFUamlPUWRvbmw0QXdhaFI2SG80MXNMMjhTVmVKOGdKMzR3R1J2RjRneDJMbGVyU2NLdUVXOG5GbE0ycGpRMFBVRGtGLXNyOEowT2VNNlV6WDNB0gF4QVVfeXFMUF92MzVGLUg5SktGc094NEwxRzBseXJmVnRUYWo3czJidVAtaHZLZlBKbVBjTERwMm9UWVB5VHZyVzF2TzJfOWZrbWtlcTM5RE9fakdFaVpUSmVpSXhGT1VDQzVfTXVOTDlOb2llQzh1eHB2aDdlX01w?oc=5",
      "date": "2026-10-22T07:00:00+00:00",
@@ -215,12 +222,6 @@
      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9uYzhTNHg5bDBqeHVwbm53TXpURFU4c1Myd05TWXB4NTJ1LTdHanNLdGR6NS11OW0xVm1fbjNhMmhTWWd5NzAtOUdIQkRpNTItYlBZWTZOaFhKbGNIM09kalFjZTRfMEw0dE130gF4QVVfeXFMTXF0MkZnYk45VzdDRWdfLUk1UnpGUWxWZXdlOXRSNGVOVTg3N1JDNGtLTGVZcDF5aXJ3OFBtbEpMaVpSZ0M5LXcxMWVLeDJPNl8zbkxJdWswX0VoVmxpUGRna2NIYngzU1lacDBqd19Ed2hWUW9weE5I?oc=5",
      "date": "2026-10-19T07:00:00+00:00",
      "source": "প্রথম আলো"
-    },
-    {
-     "title": "ঢাকা বোর্ডে এসএসসি পাস কারা বৃত্তি পাবে, তালিকা প্রকাশ - bdnews24.com",
-     "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBfQy1QMUo5Yk9GcWN5ekZEdERzcktiQjJydTdkeWk1Mm52NXdCSWQ3WTdzWUNla0RDUF84czZxckpqSHJ1Y3JiNmJSR3RXdVpaekdxTi1VYnpTVXZuYkE?oc=5",
-     "date": "2026-10-19T07:00:00+00:00",
-     "source": "bdnews24.com"
     }
    ]
   },
@@ -242,5 +243,11 @@
    "items": [],
    "note": "এই পেজে HSC-সম্পর্কিত লিংক পাওয়া যায়নি"
   }
- ]
+ ],
+ "ai_news": {
+  "generated_date": "2026-11-19",
+  "status": "unavailable",
+  "items": [],
+  "message": "আজ AI briefing তৈরি করা যায়নি; মূল উৎসের খবর নিচে আছে।"
+ }
 }
