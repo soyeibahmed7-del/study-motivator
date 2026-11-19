@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-19T02:55:43.292732+00:00",
+ "generated_at": "2026-11-19T03:16:40.171366+00:00",
  "sources": [
   {
    "id": "nctb",
@@ -62,11 +62,10 @@
   },
   {
    "id": "boards",
-   "name": "Inter-Board (শিক্ষা বোর্ড)",
+   "name": "Inter-Board (শিক্ষা বোর্ড) — web.archive.org আর্কাইভ কপি, পুরনো হতে পারে",
    "kind": "official",
    "url": "https://educationboard.gov.bd/",
-   "status": "error",
-   "error": "https://educationboard.gov.bd/: URLError: <urlopen error [Errno 111] Connection refused> | https://educationboard.gov.bd/site/view/notices: URLError: <urlopen error [Errno 111] Connection refused> | jina(https://educationboard.gov.bd/): HTTPError: HTTP Error 422: Unprocessable Entity | jina(https://",
+   "status": "ok",
    "items": []
   },
   {
