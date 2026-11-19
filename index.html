@@ -40,6 +40,10 @@
   .src a, #official a { color:#7dd3fc; }
   #official { line-height:2; }
   .warn { background:#422006; color:#fde68a; border-radius:10px; padding:10px 12px; font-size:13px; line-height:1.6; margin:12px 0; }
+  .feeditem { margin:7px 0; line-height:1.6; font-size:15px; }
+  .feeditem a { color:#7dd3fc; text-decoration:none; }
+  .feeditem a:hover { text-decoration:underline; }
+  .tag { font-size:11px; background:#334155; color:var(--muted); border-radius:6px; padding:1px 6px; margin-left:6px; }
   #info_widget { width:100%; height:80px; border:0; border-radius:8px; margin-top:8px; background:#fff; }
 </style>
 </head>
@@ -59,11 +63,19 @@
   <!-- Info Center: latest news fetched from the web (Gemini + Google Search) -->
   <div id="info"><div class="box">
     <h1>📡 Info Center</h1>
+    <div class="row" style="justify-content:flex-start">
+      <button class="go" onclick="reloadFeed()">🔄 নোটিশ রিলোড</button>
+      <button onclick="closeInfo()">← Back</button>
+    </div>
+    <div id="feed_status" class="muted"></div>
+    <div id="feed"></div>
+
+    <h3 style="color:var(--accent); margin-top:28px">🤖 AI সারাংশ (ঐচ্ছিক)</h3>
+    <div class="muted">এতে Gemini-র Google Search লাগে, যা ফ্রি অ্যাকাউন্টে নাও চলতে পারে।</div>
     <div id="info_time" class="muted"></div>
     <div class="row" style="justify-content:flex-start">
-      <button class="go" onclick="recharge(false)">🔄 Recharge</button>
+      <button onclick="recharge(false)">🔄 Recharge</button>
       <button onclick="recharge(true)">⚡ Deep Recharge</button>
-      <button onclick="closeInfo()">← Back</button>
     </div>
     <div id="info_status" class="muted"></div>
     <div id="info_body"></div>
@@ -213,21 +225,22 @@ Rules:
 ${recent}`;
 }
 
-async function askAI(history) {
+async function askAI(history, model) {
+  model = model || cfg.model;
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 25000);   // give up after 25 s
+  const timer = setTimeout(() => ctrl.abort(), 40000);   // give up after 40 s (slow models need time)
   const prompt = buildPrompt(history, STYLES[Math.floor(Math.random() * STYLES.length)]);
   try {
     let url, headers, body;
     if (cfg.provider === 'gemini') {
-      url = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(cfg.model) + ':generateContent';
+      url = 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(model) + ':generateContent';
       headers = { 'content-type': 'application/json', 'x-goog-api-key': cfg.apiKey };
       body = { contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 1, maxOutputTokens: 1500 } };
     } else {
       url = 'https://api.anthropic.com/v1/messages';
       headers = { 'content-type': 'application/json', 'x-api-key': cfg.apiKey, 'anthropic-version': '2023-06-01',
                   'anthropic-dangerous-direct-browser-access': 'true' };
-      body = { model: cfg.model, max_tokens: 400, temperature: 1, messages: [{ role: 'user', content: prompt }] };
+      body = { model: model, max_tokens: 400, temperature: 1, messages: [{ role: 'user', content: prompt }] };
     }
     const res = await fetch(url, { method: 'POST', signal: ctrl.signal, headers, body: JSON.stringify(body) });
     if (!res.ok) {
@@ -244,7 +257,7 @@ async function askAI(history) {
     if (history.includes(text)) throw new Error('Repeated an old message');
     return text;
   } catch (e) {
-    if (e.name === 'AbortError') e.message = 'Timeout - no answer within 25 seconds';
+    if (e.name === 'AbortError') e.message = 'Timeout - no answer within 40 seconds';
     throw e;
   } finally { clearTimeout(timer); }
 }
@@ -256,16 +269,22 @@ function offlineMessage(history) {
   return cfg.name && Math.random() < 0.5 ? cfg.name + ', ' + t : t;
 }
 
+const FALLBACK_MODELS = ['gemini-3.5-flash-lite', 'gemini-3.8-flash'];   // tried when your Model is busy or out of quota
 async function getMessage(history) {
   if (cfg.apiKey) {
-    const deadline = Date.now() + 30000;       // wait up to 30 s for the internet to connect
+    const deadline = Date.now() + 45000;       // wait up to 45 s (internet + model problems)
+    const models = cfg.provider === 'gemini' ? [cfg.model].concat(FALLBACK_MODELS.filter(m => m !== cfg.model)) : [cfg.model];
+    let n = 0;
     while (true) {
-      try { return { text: await askAI(history), source: 'AI' }; }
+      const m = models[n % models.length];
+      try { return { text: await askAI(history, m), source: 'AI' }; }
       catch (e) {
-        logErr('AI: ' + e.message);
-        if (e.fatal || Date.now() > deadline) break;
-        $('status').textContent = 'ইন্টারনেটের জন্য অপেক্ষা করছি…';
-        await sleep(3000);
+        logErr('AI (' + m + '): ' + e.message);
+        n++;
+        const keyProblem = /API error (400|401|403)/.test(e.message);        // wrong key: other models will not help
+        if (keyProblem || n >= models.length * 2 || Date.now() > deadline) break;
+        $('status').textContent = 'অন্য মডেল দিয়ে চেষ্টা করছি…';
+        await sleep(n % models.length === 0 ? 3000 : 800);
       }
     }
   } else logErr('No API key set - using offline message');
@@ -291,6 +310,11 @@ function pickVoice() {
          bn.find(v => /bn-BD/i.test(v.lang)) || bn[0];
 }
 let currentText = '';
+let pendingSpeak = false;
+// Browsers only allow speech after a click or key press. If it was blocked, play it on the first click.
+['pointerdown', 'keydown'].forEach(ev => document.addEventListener(ev, () => {
+  if (pendingSpeak) { pendingSpeak = false; speak(currentText); }
+}, true));
 function speak(text) {
   if (!text) return;
   speechSynthesis.cancel();
@@ -299,7 +323,8 @@ function speak(text) {
   const v = pickVoice(); if (v) u.voice = v;
   u.onerror = e => { if (e.error !== 'canceled' && e.error !== 'interrupted') {
       logErr('Voice error: ' + e.error);
-      $('status').textContent = 'শব্দ বন্ধ থাকলে “🔊 শুনুন” বোতাম চাপো।'; } };
+      if (e.error === 'not-allowed') pendingSpeak = true;
+      $('status').textContent = 'ব্রাউজার শব্দ আটকে দিয়েছে। পেজের যেকোনো জায়গায় একবার ক্লিক করো, তাহলে বাজবে।'; } };
   u.onend = () => { if (AUDIO_ONLY) setTimeout(closeApp, 1500); };   // audio-only: close after speaking
   speechSynthesis.speak(u);
 }
@@ -391,7 +416,8 @@ async function autoRefreshInfo() {
   catch (e) { logErr('Info auto-refresh: ' + e.message); LS.set('sm_info_fail', Date.now()); }
 }
 function updateTicker() {
-  const info = getInfo(), hl = info ? infoHeadline(info) : '';
+  const info = getInfo();
+  const hl = ((info ? infoHeadline(info) : '') || feedHeadline()).slice(0, 120);
   $('ticker').textContent = hl ? '📌 ' + cfg.infoTopic + ': ' + hl : '';
 }
 function renderInfo() {
@@ -417,7 +443,7 @@ function renderInfo() {
   const w = $('info_widget');
   if (info.widget) { w.srcdoc = '<base target="_blank">' + info.widget; w.style.display = 'block'; } else w.style.display = 'none';
 }
-function openInfo() { stopCountdown(); renderInfo(); $('info').style.display = 'block'; }
+function openInfo() { stopCountdown(); renderInfo(); renderFeed(); $('info').style.display = 'block'; reloadFeed(); }
 function closeInfo() { $('info').style.display = 'none'; }
 let infoBusy = false;
 function friendlyInfoError(msg) {
@@ -440,6 +466,79 @@ async function recharge(deep) {
     LS.set('sm_info_fail', Date.now());
     $('info_status').textContent = friendlyInfoError(e.message);
   } finally { infoBusy = false; }
+}
+
+
+/* ================= Notices & news collected daily by GitHub Actions (updates.json) ================= */
+let feed = LS.get('sm_feed', null);
+function feedUrls() {
+  // GitHub Pages address looks like  https://OWNER.github.io/REPO/  -> read the file straight from the repo
+  const owner = location.hostname.endsWith('.github.io') ? location.hostname.split('.')[0] : 'soyeibahmed7-del';
+  const repo = location.pathname.split('/')[1] || 'study-motivator';
+  const stamp = Math.floor(Date.now() / 60000);
+  return ['https://raw.githubusercontent.com/' + owner + '/' + repo + '/main/updates.json?t=' + stamp, 'updates.json?t=' + stamp];
+}
+async function loadFeed() {
+  for (const u of feedUrls()) {
+    try {
+      const res = await fetch(u, { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      if (!data || !Array.isArray(data.sources)) throw new Error('bad file');
+      feed = data; LS.set('sm_feed', data); return true;
+    } catch (e) { logErr('Feed ' + u.split('?')[0] + ': ' + e.message); }
+  }
+  return false;
+}
+function feedHeadline() {
+  if (!feed) return '';
+  for (const kind of ['official', 'news'])
+    for (const s of feed.sources)
+      if (s.kind === kind && s.status === 'ok' && s.items && s.items.length) return s.items[0].title;
+  return '';
+}
+function renderFeed() {
+  const box = $('feed'); box.textContent = '';
+  if (!feed) { $('feed_status').textContent = 'এখনো কোনো নোটিশ ফাইল নেই। GitHub-এ Actions একবার চালাতে হবে (গাইড দেখো)।'; return; }
+  const gen = new Date(feed.generated_at), ageH = (Date.now() - gen.getTime()) / 3600000;
+  $('feed_status').textContent = 'GitHub সর্বশেষ আপডেট করেছে: ' + gen.toLocaleString() + (ageH > 72 ? '   ⚠ ৩ দিনের বেশি পুরনো' : '');
+  feed.sources.forEach(src => {
+    const d = document.createElement('div'); d.className = 'sec';
+    const t = document.createElement('h3');
+    t.textContent = src.name + (src.kind === 'news' ? ' — সংবাদ (অনানুষ্ঠানিক)' : '');
+    d.append(t);
+    if (src.status !== 'ok') {
+      const p = document.createElement('p'); p.className = 'muted';
+      p.textContent = '⚠ এই সাইট থেকে তথ্য আনা যায়নি, নিজে খুলে দেখো। (' + (src.error || '').slice(0, 80) + ')';
+      d.append(p);
+    } else if (!src.items.length) {
+      const p = document.createElement('p'); p.className = 'muted';
+      p.textContent = 'এখন HSC / ২০২৮ সংক্রান্ত কিছু পাওয়া যায়নি।';
+      d.append(p);
+    } else {
+      src.items.forEach(it => {
+        if (!/^https?:\/\//.test(it.url)) return;
+        const row = document.createElement('div'); row.className = 'feeditem';
+        const a = document.createElement('a'); a.href = it.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = it.title;
+        row.append('• ', a);
+        if (it.match === 'related') { const g = document.createElement('span'); g.className = 'tag'; g.textContent = 'সম্পর্কিত'; row.append(g); }
+        if (it.date) { const g = document.createElement('span'); g.className = 'tag'; g.textContent = new Date(it.date).toLocaleDateString(); row.append(g); }
+        d.append(row);
+      });
+    }
+    if (src.url && /^https?:\/\//.test(src.url)) {
+      const m = document.createElement('div'); m.className = 'src';
+      const a = document.createElement('a'); a.href = src.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'সাইটটি নিজে খোলো ↗';
+      m.append(a); d.append(m);
+    }
+    box.append(d);
+  });
+}
+async function reloadFeed() {
+  $('feed_status').textContent = 'লোড হচ্ছে…';
+  const ok = await loadFeed();
+  renderFeed(); updateTicker();
+  if (!ok) $('feed_status').textContent = (feed ? '❌ নতুন ফাইল আনা যায়নি, পুরনো কপি দেখাচ্ছি।' : '❌ updates.json পাওয়া যায়নি। GitHub-এ Actions একবার চালাতে হবে (গাইড দেখো)।');
 }
 
 /* ================= Countdown & closing ================= */
@@ -477,6 +576,7 @@ function closeApp() {
   if (AUDIO_ONLY) setTimeout(closeApp, 90000);          // safety: close even if speech fails
   else if ($('panel').style.display !== 'block') startCountdown();
   autoRefreshInfo();                                    // after the message is on screen
+  if (!AUDIO_ONLY) loadFeed().then(updateTicker);       // notices collected by GitHub (no API key needed)
 })();
 </script>
 </body>
