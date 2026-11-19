@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-11-19T16:02:48.227060+00:00",
+ "generated_at": "2026-11-19T20:57:00.192531+00:00",
  "sources": [
   {
    "id": "nctb",
-   "name": "NCTB (জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড) — web.archive.org আর্কাইভ কপি, পুরনো হতে পারে",
+   "name": "NCTB (জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড) — r.jina.ai দিয়ে আনা",
    "kind": "official",
    "url": "https://nctb.gov.bd/",
    "status": "ok",
@@ -14,18 +14,18 @@
      "match": "strong"
     },
     {
-     "title": "২০২৬-২৭ শিক্ষাবর্ষের উচ্চ মাধ্যমিক ও সমমান শ্রেণির জন্য নির্ধারিত পাঠ্যসূচি ০১-১০-২০২৬ সাধারণ",
-     "url": "https://nctb.gov.bd/pages/notices/২০২৬-সালের-শিক্ষাবর্ষের-উচ্চ-মাধ্যমিক-ও-সমমান-শ্রেণীর-জন্য-নির্ধারিত-পাঠ্যসূচি-2yvrhr-6abf70ae2e520f8fc8858d74",
+     "title": "২০২৬-২৭ শিক্ষাবর্ষের উচ্চ মাধ্যমিক ও সমমান শ্রেণির জন্য নির্ধারিত পাঠ্যসূচি ০১-১০-২০২৬**সাধারণ**",
+     "url": "https://nctb.gov.bd/pages/notices/%E0%A7%A8%E0%A7%A6%E0%A7%A8%E0%A7%AC-%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A7%87%E0%A6%B0-%E0%A6%B6%E0%A6%BF%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A6%BE%E0%A6%AC%E0%A6%B0%E0%A7%8D%E0%A6%B7%E0%A7%87%E0%A6%B0-%E0%A6%89%E0%A6%9A%E0%A7%8D%E0%A6%9A-%E0%A6%AE%E0%A6%BE%E0%A6%A7%E0%A7%8D%E0%A6%AF%E0%A6%AE%E0%A6%BF%E0%A6%95-%E0%A6%93-%E0%A6%B8%E0%A6%AE%E0%A6%AE%E0%A6%BE%E0%A6%A8-%E0%A6%B6%E0%A7%8D%E0%A6%B0%E0%A7%87%E0%A6%A3%E0%A7%80%E0%A6%B0-%E0%A6%9C%E0%A6%A8%E0%A7%8D%E0%A6%AF-%E0%A6%A8%E0%A6%BF%E0%A6%B0%E0%A7%8D%E0%A6%A7%E0%A6%BE%E0%A6%B0%E0%A6%BF%E0%A6%A4-%E0%A6%AA%E0%A6%BE%E0%A6%A0%E0%A7%8D%E0%A6%AF%E0%A6%B8%E0%A7%82%E0%A6%9A%E0%A6%BF-2yvrhr-6abf70ae2e520f8fc8858d74",
      "match": "strong"
     },
     {
-     "title": "২০২৬-২০২৭ শিক্ষাবর্ষের একাদশ-দ্বাদশ শ্রেণির পাঠ্যপুস্তকসমূহে এনসিটিবি'র জলছাপযুক্ত নিরাপত্তা কাগজসহ মুদ্রণ ও বাঁধাই করে বাজারজাত নিশ্চিত করা সংক্রান্ত গণবিজ্ঞপ্তি।[2883] ২৪-০৯-২০২৬ সাধারণ",
-     "url": "https://nctb.gov.bd/pages/notices/গণবিজ্ঞপ্তি-2883-yivprg-6abdcf4082c5c3ca73ec8150",
-     "match": "strong"
-    },
-    {
-     "title": "জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (এনসিটিবি)",
+     "title": "শিক্ষাক্রম",
      "url": "https://nctb.gov.bd/",
+     "match": "related"
+    },
+    {
+     "title": "শিক্ষাক্রম",
+     "url": "https://nctb.gov.bd/#",
      "match": "related"
     },
     {
@@ -45,17 +45,17 @@
     },
     {
      "title": "প্রাথমিক শিক্ষাক্রম মূল্যায়ন",
+     "url": "https://nctb.gov.bd/pages/static-pages/6922dba5933eb65569e0b892",
+     "match": "related"
+    },
+    {
+     "title": "শিক্ষাক্রম",
+     "url": "https://nctb.gov.bd/pages/notices/",
+     "match": "related"
+    },
+    {
+     "title": "প্রাথমিক শিক্ষাক্রম মূল্যায়ন",
      "url": "https://nctb.gov.bd/pages/files/6922dbd3933eb65569e0cd02",
-     "match": "related"
-    },
-    {
-     "title": "আর্কাইভ নোটিশ",
-     "url": "https://nctb.gov.bd/pages/notices?archived=true",
-     "match": "related"
-    },
-    {
-     "title": "জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ডের সহকারী উৎপাদন নিয়ন্ত্রক জনাব মোঃ শাহ আলমকে ১১/০৯/২০২৬ থেকে ১০/১০/২০২৬ তারিখ পর্যন্ত মোট ৩০ (ত্রিশ) দিন অস্ট্রেলিয়া গমনের জন্য কর্মস্থল ত্যাগের অনুমতি প্রদান সংক্",
-     "url": "https://nctb.gov.bd/pages/notices/জাতীয়-শিক্ষাক্রম-ও-পাঠ্যপুস্তক-বোর্ডের-সহকারী-উৎপাদন-নিয়ন্ত্রক-জনাব-মোঃ-শাহ-আলমকে-১১০৯২০২৬-থেকে-১০১০২০২৬-তারিখ-পর্যন্ত-মোট-৩০-ত্রিশ-দিন-অস্ট্রেলিয়া-গমনের-জন্য-কর্মস্থল-ত্যাগের-অনুমতি-প্রদান-সংক্রান্ত-অফিস-আদেশ-2415-ubnyp1-6a9e79a2f7e1b0b533e35b39",
      "match": "related"
     }
    ]
@@ -148,9 +148,81 @@
    "name": "সংবাদ (Google News)",
    "kind": "news",
    "url": "https://news.google.com/search?q=HSC%202028",
-   "status": "error",
-   "error": "HTTPError: HTTP Error 503: Service Unavailable | HTTPError: HTTP Error 503: Service Unavailable",
-   "items": []
+   "status": "ok",
+   "items": [
+    {
+     "title": "২০২৮ খ্রিষ্টাব্দে প্রাথমিক শিক্ষাক্রম পরিমার্জনের পরিকল্পনা রয়েছে - Dainik Shiksha",
+     "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOMmxlZDlRUktMYWFvejFmeS1uV0RnV3M4WXdGeC1pbTFmUEFZbUhPeUVqQ0lJd1ZSY1pobHdMcDBMQjFIZm43dTNtV2FRemRnSjc3dVI2TVlHTmhOQTQ4cUNpS180TlFOTzFlTGtzVEVHRW9kWkt4SUJ3LWRHQTc4bkl5d0xhLWdDNWMzYm9ZNzNWcFp4UHdYaHRFYmgyOGJQdWdn?oc=5",
+     "date": "2026-11-18T13:04:10+00:00",
+     "source": "Dainik Shiksha"
+    },
+    {
+     "title": "এইচএসসির সাপ্লিমেন্টারি পরীক্ষার সময়সূচি প্রকাশ - দ্য ডেইলি স্টার বাংলা",
+     "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFA2RTkyZGVJbWJCcUNGLVBDWjdtdE9TV3UtYjhaOXVlclZNM0xSY1FqcjBITlYwUXZmTEg0WWYtZV8zdFowTmtCT3p5QlBSOUF0N3F6UmJCRlk2Yzg5RURGRkRNMlZvdnk1Q1dZaw?oc=5",
+     "date": "2026-11-14T22:02:14+00:00",
+     "source": "দ্য ডেইলি স্টার বাংলা"
+    },
+    {
+     "title": "মাত্র ৫টি টেকনিক শিখে Right form of verb সম্পূর্ণ কম্পিলিট । hsc 2026/27/28। English 2nd । Rasel Sir - YouTube",
+     "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTFBYd2N0ME9OZ0NsLTRvdnBHdkFuWnJYU1NpQ2U4TnVTNXlKcDVyZ1hQbmxGMEs3YUxjb3kzZV9nekpMdw?oc=5",
+     "date": "2026-11-09T08:00:00+00:00",
+     "source": "YouTube"
+    },
+    {
+     "title": "চেন্নাইয়ের হাসি এখন আবার অস্ট্রেলিয়ার - bdnews24.com",
+     "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE82Y2tsSmYxQXVzNHg0bHFvZDI1V25URHkxenR0TDgyVUNSemdvTDhMTTRmaUUzUWVfSHoxN0dwcmRUVFJfcF9WNG9EaVU4djdvOHhmUEthREstZw?oc=5",
+     "date": "2026-11-06T08:00:00+00:00",
+     "source": "bdnews24.com"
+    },
+    {
+     "title": "ইংল্যান্ডের প্রস্তাব ফিরিয়ে অস্ট্রেলিয়ার দায়িত্বে ‘মিস্টার ক্রিকেট’ - Tsports",
+     "url": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE1zMmktRy1oUW1EeUs4S28wWG9xaHByaDZJeExaaU1BN1RLY2ZKM1ZMaTNEbzZKNUFubktUS1REZkl0LTVTQzNwQkF5bl8?oc=5",
+     "date": "2026-11-06T03:48:38+00:00",
+     "source": "Tsports"
+    },
+    {
+     "title": "একটি বই ভাগ করে পড়া দুই বোনের এখন ঢাকা বিশ্ববিদ্যালয়ের স্বপ্ন - কালবেলা",
+     "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1qRHFwWUl5YXNsc1FKNTc0RXYtcG50a3NsdVc1blA2bndueDBHcTRrMjBNV2lFYTdCNnNTbzhyOExKY29vY0lOZVdBYVlqVUhGbEktVDBhM3o3WnJFU2ZvTGVDdEo?oc=5",
+     "date": "2026-11-04T08:00:00+00:00",
+     "source": "কালবেলা"
+    },
+    {
+     "title": "যে হাসপাতালের পাশে বাবার চায়ের দোকান, সেখানেই চিকিৎসক হতে চান মেয়ে - dhakapost.com",
+     "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1VT2xWM3VKYWloTEMtZzkwS0h6ano2dWc4eV85ZzZnTlBqV25PSTg1MmMyRWh0bVBGMmhBRncyaFcyTGZGdExSOUhyR0RiLWVkcEtJ?oc=5",
+     "date": "2026-11-04T08:00:00+00:00",
+     "source": "dhakapost.com"
+    },
+    {
+     "title": "এইচএসসিতে এক-দুই বিষয়ে ফেল, সাপ্লিমেন্টারি পরীক্ষার সম্ভাব্য তারিখ ২ ডিসেম্বর - বাংলা টেলিগ্রাফ",
+     "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1fSGZQZ1VyOVIyNVBlLXZnTFdKdlF4U3BHZTZ1WVBQUjhrZnE3WWxFSUE3eGtWQnRkSVl0eUhYRFVaR3A0YlNDTnQ5emFzTkZFOW9sZDBMQ3E4dw?oc=5",
+     "date": "2026-11-01T07:00:00+00:00",
+     "source": "বাংলা টেলিগ্রাফ"
+    },
+    {
+     "title": "এইচএসসির ফল প্রকাশ ৩১ অক্টোবর: শিক্ষামন্ত্রী - বাংলা টেলিগ্রাফ",
+     "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5kVFdfUlh0Q0w5MEVub0k5SHVHSmRhMjBzNEtzZVd0TEhXbU5haEhqZFp4WUYtWDZ6dHhiTkcwTmcxOTdxdUcxWG50aDNfYlltQV9fM013XzMyUQ?oc=5",
+     "date": "2026-10-27T07:00:00+00:00",
+     "source": "বাংলা টেলিগ্রাফ"
+    },
+    {
+     "title": "পিছিয়ে গেলো এইচএসসির ফল প্রকাশের তারিখ, জেনে নিন নতুন দিনক্ষণ - এখন টিভি",
+     "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE05R29veXZqNjZCcnMwQkFMZzJob1B1b0x0cWFPZXhEeEdnQnE3Zk9mWldweDQ4dVUzb1RhZTZWbjBZN0o3SEFaa0E4QzFsZENRcGtHQld3TjFNRHMtdFE?oc=5",
+     "date": "2026-10-27T07:00:00+00:00",
+     "source": "এখন টিভি"
+    },
+    {
+     "title": "এইচএসসি ও সমমানের পরীক্ষার ফল প্রকাশ ২৯ অক্টোবর - বাংলা টেলিগ্রাফ",
+     "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBTU2FkbE9JUFNwRTUwTmQ5TWhQVEVuUElIRFZjZHJ0VmdRVnBnTFRnMXBUMVR1NThnbG5OWWpsb0s5RjFzNDN0dXBIbkcxZENQSGxTdmJ3cnVsQQ?oc=5",
+     "date": "2026-10-25T07:00:00+00:00",
+     "source": "বাংলা টেলিগ্রাফ"
+    },
+    {
+     "title": "এসএসসির টেস্ট পরীক্ষার তারিখ ঘোষণা, শিক্ষা বোর্ডের যে যে নির্দেশনা - প্রথম আলো",
+     "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9DelN6bnVtdTNNUXZ0ZmF4elFUamlPUWRvbmw0QXdhaFI2SG80MXNMMjhTVmVKOGdKMzR3R1J2RjRneDJMbGVyU2NLdUVXOG5GbE0ycGpRMFBVRGtGLXNyOEowT2VNNlV6WDNB0gF4QVVfeXFMUF92MzVGLUg5SktGc094NEwxRzBseXJmVnRUYWo3czJidVAtaHZLZlBKbVBjTERwMm9UWVB5VHZyVzF2TzJfOWZrbWtlcTM5RE9fakdFaVpUSmVpSXhGT1VDQzVfTXVOTDlOb2llQzh1eHB2aDdlX01w?oc=5",
+     "date": "2026-10-22T07:00:00+00:00",
+     "source": "প্রথম আলো"
+    }
+   ]
   },
   {
    "id": "ugc",
