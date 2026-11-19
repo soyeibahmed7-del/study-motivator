@@ -511,6 +511,8 @@ async function loadFeed() {
 }
 function feedHeadline() {
   if (!feed) return '';
+  const aiItems = feed.ai_news && Array.isArray(feed.ai_news.items) ? feed.ai_news.items : [];
+  if (aiItems.length && aiItems[0].title) return aiItems[0].title;
   for (const kind of ['official', 'news'])
     for (const s of feed.sources)
       if (s.kind === kind && s.status === 'ok' && s.items && s.items.length) return s.items[0].title;
@@ -521,6 +523,70 @@ function renderFeed() {
   if (!feed) { $('feed_status').textContent = 'এখনো কোনো নোটিশ ফাইল নেই। GitHub-এ Actions একবার চালাতে হবে (গাইড দেখো)।'; return; }
   const gen = new Date(feed.generated_at), ageH = (Date.now() - gen.getTime()) / 3600000;
   $('feed_status').textContent = 'GitHub সর্বশেষ আপডেট করেছে: ' + gen.toLocaleString() + (ageH > 72 ? '   ⚠ ৩ দিনের বেশি পুরনো' : '');
+
+  // AI-written daily briefing: detailed explanation plus links to the original sources.
+  const ai = feed.ai_news;
+  if (ai && Array.isArray(ai.items) && ai.items.length) {
+    const heading = document.createElement('h2');
+    heading.textContent = '🤖 HSC 2028: AI বিশ্লেষণসহ আজকের সংবাদ';
+    heading.style.color = 'var(--accent)';
+    box.append(heading);
+    const aiMeta = document.createElement('div');
+    aiMeta.className = 'muted';
+    aiMeta.textContent = 'AI তৈরি: ' + new Date(ai.generated_at || feed.generated_at).toLocaleString() +
+      ' · প্রতিটি খবরের মূল সূত্র নিচে দেওয়া আছে';
+    box.append(aiMeta);
+    ai.items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'sec';
+      const title = document.createElement('h3');
+      title.textContent = item.title || 'শিক্ষা-সংবাদ';
+      card.append(title);
+      const meta = document.createElement('div');
+      meta.className = 'muted';
+      meta.textContent = [item.category, item.publisher, item.published_at, item.certainty].filter(Boolean).join(' · ');
+      card.append(meta);
+      const sections = [
+        ['📰 কী ঘটেছে', item.what_happened],
+        ['🎯 কেন গুরুত্বপূর্ণ', item.why_it_matters],
+        ['📌 শিক্ষার্থীদের করণীয়', item.student_action]
+      ];
+      sections.forEach(part => {
+        if (!part[1]) return;
+        const label = document.createElement('h4');
+        label.textContent = part[0];
+        label.style.margin = '12px 0 4px';
+        label.style.color = 'var(--text)';
+        const paragraph = document.createElement('p');
+        paragraph.textContent = part[1];
+        card.append(label, paragraph);
+      });
+      const links = (Array.isArray(item.source_urls) ? item.source_urls : [])
+        .filter(url => /^https:\/\//i.test(url)).slice(0, 4);
+      if (links.length) {
+        const sourceBox = document.createElement('div');
+        sourceBox.className = 'src';
+        sourceBox.append('মূল সূত্র: ');
+        links.forEach((url, index) => {
+          const link = document.createElement('a');
+          link.href = url;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = 'সূত্র ' + (index + 1);
+          sourceBox.append(link);
+          if (index < links.length - 1) sourceBox.append(' · ');
+        });
+        card.append(sourceBox);
+      }
+      box.append(card);
+    });
+  } else {
+    const note = document.createElement('div');
+    note.className = 'warn';
+    note.textContent = 'আজকের AI বিশ্লেষণ এখনো তৈরি হয়নি। নিচে পাওয়া মূল নোটিশ ও সংবাদ লিংকগুলো দেখো।';
+    box.append(note);
+  }
+
   feed.sources.forEach(src => {
     const d = document.createElement('div'); d.className = 'sec';
     const t = document.createElement('h3');
