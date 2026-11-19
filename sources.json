@@ -1,0 +1,16 @@
+[
+  {
+    "id": "ugc",
+    "name": "বিশ্ববিদ্যালয় মঞ্জুরি কমিশন (UGC)",
+    "url": "https://ugc.gov.bd/",
+    "type": "website",
+    "kind": "official"
+  },
+  {
+    "id": "admission",
+    "name": "বাংলাদেশ শিক্ষা তথ্য ও ভর্তি সংবাদ",
+    "url": "https://www.educationboardresults.gov.bd/",
+    "type": "website",
+    "kind": "official"
+  }
+]
