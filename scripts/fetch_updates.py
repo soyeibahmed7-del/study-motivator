@@ -62,26 +62,12 @@ def is_ssl_error(e):
 
 
 def fetch(url, timeout=20):
-    """Download a page. Many .gov.bd sites have bad certificates, so SSL problems are retried without SSL checking.
-    Timeouts / 'connection refused' are NOT retried (that usually means the site blocks GitHub's servers)."""
-    last = None
-    for verify in (True, False):
-        ctx = ssl.create_default_context()
-        if not verify:
-            ctx.check_hostname = False
-            ctx.verify_mode = ssl.CERT_NONE
-        try:
-            req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "bn,en;q=0.8"})
-            with urllib.request.urlopen(req, timeout=timeout, context=ctx) as r:
-                raw = r.read(3_000_000)
-                charset = r.headers.get_content_charset() or "utf-8"
-            return raw.decode(charset, errors="replace")
-        except Exception as e:  # noqa: BLE001
-            last = e
-            if not is_ssl_error(e):
-                break
-    raise last
-
+    """Download a page using normal TLS certificate verification."""
+    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "bn,en;q=0.8"})
+    with urllib.request.urlopen(req, timeout=timeout, context=ssl.create_default_context()) as r:
+        raw = r.read(3_000_000)
+        charset = r.headers.get_content_charset() or "utf-8"
+    return raw.decode(charset, errors="replace")
 
 # If a site blocks GitHub's servers we try to read it through these helpers instead.
 # NOTE: results from them can be older (archive copy) - the site name in the Info Center says so.
