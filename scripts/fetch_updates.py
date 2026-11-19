@@ -8,6 +8,7 @@ import json
 import re
 import ssl
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -54,25 +55,47 @@ def norm(text):
     return text.translate(BN_DIGITS).lower()
 
 
-def fetch(url, timeout=25):
-    """Download a page. Retries once, and retries without SSL checking (many .gov.bd sites have bad certificates)."""
+def is_ssl_error(e):
+    reason = getattr(e, "reason", None)
+    return isinstance(e, ssl.SSLError) or isinstance(reason, ssl.SSLError) or "CERTIFICATE" in str(e).upper()
+
+
+def fetch(url, timeout=20):
+    """Download a page. Many .gov.bd sites have bad certificates, so SSL problems are retried without SSL checking.
+    Timeouts / 'connection refused' are NOT retried (that usually means the site blocks GitHub's servers)."""
     last = None
     for verify in (True, False):
-        for _ in range(2):
-            ctx = ssl.create_default_context()
-            if not verify:
-                ctx.check_hostname = False
-                ctx.verify_mode = ssl.CERT_NONE
-            try:
-                req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "bn,en;q=0.8"})
-                with urllib.request.urlopen(req, timeout=timeout, context=ctx) as r:
-                    raw = r.read(3_000_000)
-                    charset = r.headers.get_content_charset() or "utf-8"
-                return raw.decode(charset, errors="replace")
-            except Exception as e:  # noqa: BLE001
-                last = e
-                time.sleep(2)
+        ctx = ssl.create_default_context()
+        if not verify:
+            ctx.check_hostname = False
+            ctx.verify_mode = ssl.CERT_NONE
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "bn,en;q=0.8"})
+            with urllib.request.urlopen(req, timeout=timeout, context=ctx) as r:
+                raw = r.read(3_000_000)
+                charset = r.headers.get_content_charset() or "utf-8"
+            return raw.decode(charset, errors="replace")
+        except Exception as e:  # noqa: BLE001
+            last = e
+            if not is_ssl_error(e):
+                break
     raise last
+
+
+# If a site blocks GitHub's servers we try to read it through these helpers instead.
+# NOTE: results from them can be older (archive copy) - the site name in the Info Center says so.
+PROXIES = [
+    {"id": "jina", "label": "r.jina.ai দিয়ে আনা", "kind": "md",
+     "build": lambda u: "https://r.jina.ai/" + u},
+    {"id": "wayback", "label": "web.archive.org আর্কাইভ কপি, পুরনো হতে পারে", "kind": "html",
+     "build": lambda u: "https://web.archive.org/web/2/" + u},
+]
+MD_LINK = re.compile(r"(?<!!)\[([^\]\n]{8,200})\]\((https?://[^)\s]+)")
+WAYBACK_PREFIX = re.compile(r"^https?://web\.archive\.org/web/\d+[a-z_]*/", re.I)
+
+
+def extract_md_links(text):
+    return [{"title": re.sub(r"\s+", " ", m.group(1)).strip(), "url": m.group(2)} for m in MD_LINK.finditer(text)]
 
 
 class LinkParser(HTMLParser):
@@ -125,8 +148,21 @@ def pick_relevant(links, limit):
     return (strong + weak)[:limit]
 
 
+def links_via_proxy(px, url):
+    """Read one page through a helper service and return its links."""
+    text = fetch(px["build"](url), timeout=40)
+    if px["kind"] == "md":
+        return extract_md_links(text)
+    out = []
+    for l in extract_links(text, px["build"](url)):
+        u = WAYBACK_PREFIX.sub("", l["url"])
+        if u.startswith("http") and "web.archive.org" not in u:
+            out.append({"title": l["title"], "url": u})
+    return out
+
+
 def collect_official(src):
-    items, errors, ok = [], [], False
+    items, errors, ok, via = [], [], False, None
     for url in src["urls"]:
         try:
             html = fetch(url)
@@ -134,12 +170,27 @@ def collect_official(src):
             items += extract_links(html, url)
         except Exception as e:  # noqa: BLE001
             errors.append(f"{url}: {type(e).__name__}: {e}")
+    if not ok:                                   # site blocks us -> try the helpers
+        for px in PROXIES:
+            for url in src["urls"]:
+                try:
+                    links = links_via_proxy(px, url)
+                except Exception as e:  # noqa: BLE001
+                    errors.append(f"{px['id']}({url}): {type(e).__name__}: {e}")
+                    continue
+                if links:
+                    items += links
+                    ok, via = True, px
+            if ok:
+                break
     result = {"id": src["id"], "name": src["name"], "kind": "official", "url": src["urls"][0]}
+    if via:
+        result["name"] += " — " + via["label"]
     if not ok:
         result.update(status="error", error=" | ".join(errors)[:300], items=[])
     else:
         result.update(status="ok", items=pick_relevant(items, MAX_OFFICIAL))
-        if errors:
+        if errors and not via:
             result["note"] = "কিছু পেজ খোলা যায়নি"
     return result
 
