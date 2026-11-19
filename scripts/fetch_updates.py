@@ -5,6 +5,7 @@ Runs on GitHub Actions every day. Uses only Python's standard library (no pip in
 Each source is tried separately, so one broken website never stops the others.
 """
 import json
+import os
 import re
 import ssl
 import time
@@ -237,8 +238,114 @@ def collect_news():
     return result
 
 
+
+# ---- User-managed and AI-discovered sources ----
+CUSTOM_FILE = Path(__file__).resolve().parent.parent / "sources.json"
+DISCOVERED_FILE = Path(__file__).resolve().parent.parent / "discovered_sources.json"
+
+
+def valid_source_url(url):
+    try:
+        p = urllib.parse.urlparse(url)
+        return p.scheme == "https" and bool(p.netloc) and not p.username and not p.password
+    except Exception:
+        return False
+
+
+def read_source_list(path):
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        return data if isinstance(data, list) else []
+    except (OSError, json.JSONDecodeError):
+        return []
+
+
+def collect_extra_source(src):
+    name = str(src.get("name") or "অতিরিক্ত উৎস")[:120]
+    url = str(src.get("url") or "").strip()
+    source_type = src.get("type", "website")
+    result = {"id": str(src.get("id") or re.sub(r"[^a-z0-9]+", "-", name.lower())[:40]),
+              "name": name, "kind": src.get("kind", "custom"), "url": url}
+    if not valid_source_url(url):
+        result.update(status="error", error="শুধু বৈধ HTTPS URL গ্রহণ করা হয়", items=[])
+        return result
+    try:
+        body = fetch(url)
+        if source_type == "rss":
+            items = parse_rss(body)
+            result.update(status="ok", items=items[:MAX_NEWS])
+        else:
+            links = extract_links(body, url)
+            picked = pick_relevant(links, MAX_OFFICIAL)
+            result.update(status="ok", items=picked)
+            if not picked:
+                result["note"] = "এই পেজে HSC-সম্পর্কিত লিংক পাওয়া যায়নি"
+    except Exception as e:  # noqa: BLE001
+        result.update(status="error", error=f"{type(e).__name__}: {e}"[:300], items=[])
+    return result
+
+
+def discover_sources():
+    """Use Gemini web grounding to discover candidate Bangladesh education sources.
+    The key must be stored as a GitHub Actions secret, never in the browser."""
+    api_key = os.environ.get("GEMINI_API_KEY", "").strip()
+    if not api_key:
+        print("source discovery skipped: GEMINI_API_KEY secret is not configured")
+        return read_source_list(DISCOVERED_FILE)
+
+    prompt = (
+        "Find up to 8 useful public HTTPS websites or RSS feeds for Bangladesh HSC 2028 "
+        "students: NCTB, education boards, education ministry, DSHE, admission/exam notices "
+        "and reputable education news. Prefer official sources. Return concise names and "
+        "explain the source type. Do not include social-media profile URLs or login-only pages."
+    )
+    endpoint = ("https://generativelanguage.googleapis.com/v1beta/models/"
+                "gemini-2.5-flash:generateContent")
+    payload = {"contents": [{"parts": [{"text": prompt}]}],
+               "tools": [{"google_search": {}}],
+               "generationConfig": {"temperature": 0.2, "maxOutputTokens": 1200}}
+    req = urllib.request.Request(endpoint, data=json.dumps(payload).encode(),
+        headers={"Content-Type": "application/json", "x-goog-api-key": api_key})
+    try:
+        with urllib.request.urlopen(req, timeout=45) as response:
+            data = json.loads(response.read().decode("utf-8"))
+        chunks = (((data.get("candidates") or [{}])[0].get("groundingMetadata") or {})
+                  .get("groundingChunks") or [])
+        found, seen = [], set()
+        for chunk in chunks:
+            web = chunk.get("web") or {}
+            url = str(web.get("uri") or "").strip()
+            title = str(web.get("title") or "AI-আবিষ্কৃত শিক্ষা-তথ্য উৎস").strip()
+            if not valid_source_url(url) or url in seen:
+                continue
+            host = urllib.parse.urlparse(url).hostname or ""
+            if host.endswith("google.com") or host.endswith("googleusercontent.com"):
+                continue
+            seen.add(url)
+            found.append({"id": "ai-" + str(len(found) + 1), "name": title[:120],
+                          "url": url, "type": "website", "kind": "discovered"})
+            if len(found) >= 8:
+                break
+        if found:
+            DISCOVERED_FILE.write_text(json.dumps(found, ensure_ascii=False, indent=2), encoding="utf-8")
+            print(f"AI source discovery: {len(found)} candidate sources saved")
+            return found
+        print("AI source discovery returned no usable HTTPS sources")
+    except Exception as e:  # noqa: BLE001
+        print(f"AI source discovery failed: {type(e).__name__}: {e}")
+    return read_source_list(DISCOVERED_FILE)
+
+
 def main():
+    discovered = discover_sources()
+    extras = read_source_list(CUSTOM_FILE) + discovered
     sources = [collect_official(s) for s in OFFICIAL] + [collect_news()]
+    seen_urls = {s["url"] for s in OFFICIAL}
+    for src in extras:
+        url = str(src.get("url") or "").strip()
+        if url and url not in seen_urls:
+            seen_urls.add(url)
+            sources.append(collect_extra_source(src))
     data = {"generated_at": datetime.now(timezone.utc).isoformat(), "sources": sources}
     OUT.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
     for s in sources:
