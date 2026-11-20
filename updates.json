@@ -1,21 +1,16 @@
 {
- "generated_at": "2026-11-20T01:06:49.157765+00:00",
+ "generated_at": "2026-11-20T06:07:47.253512+00:00",
  "sources": [
   {
    "id": "nctb",
-   "name": "NCTB (জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড) — r.jina.ai দিয়ে আনা",
+   "name": "NCTB (জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড) — web.archive.org আর্কাইভ কপি, পুরনো হতে পারে",
    "kind": "official",
    "url": "https://nctb.gov.bd/",
    "status": "ok",
    "items": [
     {
      "title": "উচ্চ মাধ্যমিক",
-     "url": "https://nctb.gov.bd/pages/files/6922dbc6933eb65569e0c702",
-     "match": "strong"
-    },
-    {
-     "title": "২০২৬-২৭ শিক্ষাবর্ষের উচ্চ মাধ্যমিক ও সমমান শ্রেণির জন্য নির্ধারিত পাঠ্যসূচি ০১-১০-২০২৬**সাধারণ**",
-     "url": "https://nctb.gov.bd/pages/notices/%E0%A7%A8%E0%A7%A6%E0%A7%A8%E0%A7%AC-%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A7%87%E0%A6%B0-%E0%A6%B6%E0%A6%BF%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A6%BE%E0%A6%AC%E0%A6%B0%E0%A7%8D%E0%A6%B7%E0%A7%87%E0%A6%B0-%E0%A6%89%E0%A6%9A%E0%A7%8D%E0%A6%9A-%E0%A6%AE%E0%A6%BE%E0%A6%A7%E0%A7%8D%E0%A6%AF%E0%A6%AE%E0%A6%BF%E0%A6%95-%E0%A6%93-%E0%A6%B8%E0%A6%AE%E0%A6%AE%E0%A6%BE%E0%A6%A8-%E0%A6%B6%E0%A7%8D%E0%A6%B0%E0%A7%87%E0%A6%A3%E0%A7%80%E0%A6%B0-%E0%A6%9C%E0%A6%A8%E0%A7%8D%E0%A6%AF-%E0%A6%A8%E0%A6%BF%E0%A6%B0%E0%A7%8D%E0%A6%A7%E0%A6%BE%E0%A6%B0%E0%A6%BF%E0%A6%A4-%E0%A6%AA%E0%A6%BE%E0%A6%A0%E0%A7%8D%E0%A6%AF%E0%A6%B8%E0%A7%82%E0%A6%9A%E0%A6%BF-2yvrhr-6abf70ae2e520f8fc8858d74",
+     "url": "https://nctb.gov.bd/site/files/e977a7e5-be01-4c42-99ac-bc966d334ae7/-",
      "match": "strong"
     },
     {
@@ -25,47 +20,38 @@
     },
     {
      "title": "বিভিন্ন পরীক্ষার পুনর্বিন্যাসকৃত পাঠ্যসূচি ও নবম দশম শ্রেণির বিভিন্ন বিষয়ের প্রশ্নের ধরন",
-     "url": "https://nctb.gov.bd/pages/static-pages/6922dff5933eb65569e24d31",
+     "url": "https://nctb.gov.bd/site/page/9a90c854-ce5f-4d77-9915-1ecd0953079d/-",
      "match": "related"
     },
     {
      "title": "জেএসসি পরীক্ষার মান বন্টন ও নমুনা প্রশ্ন",
-     "url": "https://nctb.gov.bd/pages/static-pages/6922dda1933eb65569e15b1d",
+     "url": "https://nctb.gov.bd/site/page/0a3c9883-16f6-41b5-888e-44e2301b76f6/-",
      "match": "related"
     },
     {
      "title": "নীতিমালা ও নোটিশ",
-     "url": "https://nctb.gov.bd/pages/publications",
+     "url": "https://nctb.gov.bd/site/view/publications/-",
      "match": "related"
     },
     {
      "title": "প্রাথমিক শিক্ষাক্রম মূল্যায়ন",
-     "url": "https://nctb.gov.bd/pages/files/6922dbd3933eb65569e0cd02",
+     "url": "https://nctb.gov.bd/site/files/ec77358b-89df-4ec7-9eac-d03bd01af806/-",
      "match": "related"
     },
     {
      "title": "আর্কাইভ নোটিশ",
-     "url": "https://nctb.gov.bd/pages/notices?archived=true",
-     "match": "related"
-    },
-    {
-     "title": "সকল নোটিশ দেখুন",
-     "url": "https://nctb.gov.bd/pages/notices",
-     "match": "related"
-    },
-    {
-     "title": "টেন্ডার নোটিশ",
-     "url": "https://nctb.gov.bd/pages/tenders",
+     "url": "http://nctb.portal.gov.bd/site/view/notices_archieve",
      "match": "related"
     }
    ]
   },
   {
    "id": "boards",
-   "name": "Inter-Board (শিক্ষা বোর্ড) — web.archive.org আর্কাইভ কপি, পুরনো হতে পারে",
+   "name": "Inter-Board (শিক্ষা বোর্ড)",
    "kind": "official",
    "url": "https://educationboard.gov.bd/",
-   "status": "ok",
+   "status": "error",
+   "error": "https://educationboard.gov.bd/: URLError: <urlopen error [Errno 111] Connection refused> | https://educationboard.gov.bd/site/view/notices: URLError: <urlopen error [Errno 111] Connection refused> | jina(https://educationboard.gov.bd/): HTTPError: HTTP Error 401: Unauthorized | jina(https://educatio",
    "items": []
   },
   {
@@ -199,28 +185,28 @@
      "source": "বাংলা টেলিগ্রাফ"
     },
     {
-     "title": "এইচএসসির ফল প্রকাশ ৩১ অক্টোবর: শিক্ষামন্ত্রী - বাংলা টেলিগ্রাফ",
-     "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5kVFdfUlh0Q0w5MEVub0k5SHVHSmRhMjBzNEtzZVd0TEhXbU5haEhqZFp4WUYtWDZ6dHhiTkcwTmcxOTdxdUcxWG50aDNfYlltQV9fM013XzMyUQ?oc=5",
-     "date": "2026-10-27T07:00:00+00:00",
-     "source": "বাংলা টেলিগ্রাফ"
-    },
-    {
      "title": "পিছিয়ে গেলো এইচএসসির ফল প্রকাশের তারিখ, জেনে নিন নতুন দিনক্ষণ - এখন টিভি",
      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE05R29veXZqNjZCcnMwQkFMZzJob1B1b0x0cWFPZXhEeEdnQnE3Zk9mWldweDQ4dVUzb1RhZTZWbjBZN0o3SEFaa0E4QzFsZENRcGtHQld3TjFNRHMtdFE?oc=5",
      "date": "2026-10-27T07:00:00+00:00",
      "source": "এখন টিভি"
     },
     {
-     "title": "এইচএসসি ও সমমানের পরীক্ষার ফল প্রকাশ ২৯ অক্টোবর - বাংলা টেলিগ্রাফ",
-     "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBTU2FkbE9JUFNwRTUwTmQ5TWhQVEVuUElIRFZjZHJ0VmdRVnBnTFRnMXBUMVR1NThnbG5OWWpsb0s5RjFzNDN0dXBIbkcxZENQSGxTdmJ3cnVsQQ?oc=5",
-     "date": "2026-10-25T07:00:00+00:00",
-     "source": "বাংলা টেলিগ্রাফ"
-    },
-    {
      "title": "এসএসসির টেস্ট পরীক্ষার তারিখ ঘোষণা, শিক্ষা বোর্ডের যে যে নির্দেশনা - প্রথম আলো",
      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9DelN6bnVtdTNNUXZ0ZmF4elFUamlPUWRvbmw0QXdhaFI2SG80MXNMMjhTVmVKOGdKMzR3R1J2RjRneDJMbGVyU2NLdUVXOG5GbE0ycGpRMFBVRGtGLXNyOEowT2VNNlV6WDNB0gF4QVVfeXFMUF92MzVGLUg5SktGc094NEwxRzBseXJmVnRUYWo3czJidVAtaHZLZlBKbVBjTERwMm9UWVB5VHZyVzF2TzJfOWZrbWtlcTM5RE9fakdFaVpUSmVpSXhGT1VDQzVfTXVOTDlOb2llQzh1eHB2aDdlX01w?oc=5",
      "date": "2026-10-22T07:00:00+00:00",
      "source": "প্রথম আলো"
+    },
+    {
+     "title": "আলিম পরীক্ষা ২০২৮, নম্বর বণ্টনসহ নতুন সিলেবাস প্রকাশ - প্রথম আলো",
+     "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9uYzhTNHg5bDBqeHVwbm53TXpURFU4c1Myd05TWXB4NTJ1LTdHanNLdGR6NS11OW0xVm1fbjNhMmhTWWd5NzAtOUdIQkRpNTItYlBZWTZOaFhKbGNIM09kalFjZTRfMEw0dE130gF4QVVfeXFMTXF0MkZnYk45VzdDRWdfLUk1UnpGUWxWZXdlOXRSNGVOVTg3N1JDNGtLTGVZcDF5aXJ3OFBtbEpMaVpSZ0M5LXcxMWVLeDJPNl8zbkxJdWswX0VoVmxpUGRna2NIYngzU1lacDBqd19Ed2hWUW9weE5I?oc=5",
+     "date": "2026-10-19T07:00:00+00:00",
+     "source": "প্রথম আলো"
+    },
+    {
+     "title": "ঢাকা বোর্ডে এসএসসি পাস কারা বৃত্তি পাবে, তালিকা প্রকাশ - bdnews24.com",
+     "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBfQy1QMUo5Yk9GcWN5ekZEdERzcktiQjJydTdkeWk1Mm52NXdCSWQ3WTdzWUNla0RDUF84czZxckpqSHJ1Y3JiNmJSR3RXdVpaekdxTi1VYnpTVXZuYkE?oc=5",
+     "date": "2026-10-19T07:00:00+00:00",
+     "source": "bdnews24.com"
     }
    ]
   },
