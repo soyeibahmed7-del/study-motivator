@@ -1,16 +1,21 @@
 {
- "generated_at": "2026-11-20T06:07:47.253512+00:00",
+ "generated_at": "2026-11-20T11:04:43.062483+00:00",
  "sources": [
   {
    "id": "nctb",
-   "name": "NCTB (জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড) — web.archive.org আর্কাইভ কপি, পুরনো হতে পারে",
+   "name": "NCTB (জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড) — r.jina.ai দিয়ে আনা",
    "kind": "official",
    "url": "https://nctb.gov.bd/",
    "status": "ok",
    "items": [
     {
      "title": "উচ্চ মাধ্যমিক",
-     "url": "https://nctb.gov.bd/site/files/e977a7e5-be01-4c42-99ac-bc966d334ae7/-",
+     "url": "https://nctb.gov.bd/pages/files/6922dbc6933eb65569e0c702",
+     "match": "strong"
+    },
+    {
+     "title": "২০২৬-২৭ শিক্ষাবর্ষের উচ্চ মাধ্যমিক ও সমমান শ্রেণির জন্য নির্ধারিত পাঠ্যসূচি ০১-১০-২০২৬**সাধারণ**",
+     "url": "https://nctb.gov.bd/pages/notices/%E0%A7%A8%E0%A7%A6%E0%A7%A8%E0%A7%AC-%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A7%87%E0%A6%B0-%E0%A6%B6%E0%A6%BF%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A6%BE%E0%A6%AC%E0%A6%B0%E0%A7%8D%E0%A6%B7%E0%A7%87%E0%A6%B0-%E0%A6%89%E0%A6%9A%E0%A7%8D%E0%A6%9A-%E0%A6%AE%E0%A6%BE%E0%A6%A7%E0%A7%8D%E0%A6%AF%E0%A6%AE%E0%A6%BF%E0%A6%95-%E0%A6%93-%E0%A6%B8%E0%A6%AE%E0%A6%AE%E0%A6%BE%E0%A6%A8-%E0%A6%B6%E0%A7%8D%E0%A6%B0%E0%A7%87%E0%A6%A3%E0%A7%80%E0%A6%B0-%E0%A6%9C%E0%A6%A8%E0%A7%8D%E0%A6%AF-%E0%A6%A8%E0%A6%BF%E0%A6%B0%E0%A7%8D%E0%A6%A7%E0%A6%BE%E0%A6%B0%E0%A6%BF%E0%A6%A4-%E0%A6%AA%E0%A6%BE%E0%A6%A0%E0%A7%8D%E0%A6%AF%E0%A6%B8%E0%A7%82%E0%A6%9A%E0%A6%BF-2yvrhr-6abf70ae2e520f8fc8858d74",
      "match": "strong"
     },
     {
@@ -20,38 +25,47 @@
     },
     {
      "title": "বিভিন্ন পরীক্ষার পুনর্বিন্যাসকৃত পাঠ্যসূচি ও নবম দশম শ্রেণির বিভিন্ন বিষয়ের প্রশ্নের ধরন",
-     "url": "https://nctb.gov.bd/site/page/9a90c854-ce5f-4d77-9915-1ecd0953079d/-",
+     "url": "https://nctb.gov.bd/pages/static-pages/6922dff5933eb65569e24d31",
      "match": "related"
     },
     {
      "title": "জেএসসি পরীক্ষার মান বন্টন ও নমুনা প্রশ্ন",
-     "url": "https://nctb.gov.bd/site/page/0a3c9883-16f6-41b5-888e-44e2301b76f6/-",
+     "url": "https://nctb.gov.bd/pages/static-pages/6922dda1933eb65569e15b1d",
      "match": "related"
     },
     {
      "title": "নীতিমালা ও নোটিশ",
-     "url": "https://nctb.gov.bd/site/view/publications/-",
+     "url": "https://nctb.gov.bd/pages/publications",
      "match": "related"
     },
     {
      "title": "প্রাথমিক শিক্ষাক্রম মূল্যায়ন",
-     "url": "https://nctb.gov.bd/site/files/ec77358b-89df-4ec7-9eac-d03bd01af806/-",
+     "url": "https://nctb.gov.bd/pages/files/6922dbd3933eb65569e0cd02",
      "match": "related"
     },
     {
      "title": "আর্কাইভ নোটিশ",
-     "url": "http://nctb.portal.gov.bd/site/view/notices_archieve",
+     "url": "https://nctb.gov.bd/pages/notices?archived=true",
+     "match": "related"
+    },
+    {
+     "title": "সকল নোটিশ দেখুন",
+     "url": "https://nctb.gov.bd/pages/notices",
+     "match": "related"
+    },
+    {
+     "title": "টেন্ডার নোটিশ",
+     "url": "https://nctb.gov.bd/pages/tenders",
      "match": "related"
     }
    ]
   },
   {
    "id": "boards",
-   "name": "Inter-Board (শিক্ষা বোর্ড)",
+   "name": "Inter-Board (শিক্ষা বোর্ড) — web.archive.org আর্কাইভ কপি, পুরনো হতে পারে",
    "kind": "official",
    "url": "https://educationboard.gov.bd/",
-   "status": "error",
-   "error": "https://educationboard.gov.bd/: URLError: <urlopen error [Errno 111] Connection refused> | https://educationboard.gov.bd/site/view/notices: URLError: <urlopen error [Errno 111] Connection refused> | jina(https://educationboard.gov.bd/): HTTPError: HTTP Error 401: Unauthorized | jina(https://educatio",
+   "status": "ok",
    "items": []
   },
   {
@@ -137,12 +151,6 @@
    "status": "ok",
    "items": [
     {
-     "title": "২০২৮ খ্রিষ্টাব্দে প্রাথমিক শিক্ষাক্রম পরিমার্জনের পরিকল্পনা রয়েছে - Dainik Shiksha",
-     "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOMmxlZDlRUktMYWFvejFmeS1uV0RnV3M4WXdGeC1pbTFmUEFZbUhPeUVqQ0lJd1ZSY1pobHdMcDBMQjFIZm43dTNtV2FRemRnSjc3dVI2TVlHTmhOQTQ4cUNpS180TlFOTzFlTGtzVEVHRW9kWkt4SUJ3LWRHQTc4bkl5d0xhLWdDNWMzYm9ZNzNWcFp4UHdYaHRFYmgyOGJQdWdn?oc=5",
-     "date": "2026-11-18T13:04:10+00:00",
-     "source": "Dainik Shiksha"
-    },
-    {
      "title": "এইচএসসির সাপ্লিমেন্টারি পরীক্ষার সময়সূচি প্রকাশ - দ্য ডেইলি স্টার বাংলা",
      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFA2RTkyZGVJbWJCcUNGLVBDWjdtdE9TV3UtYjhaOXVlclZNM0xSY1FqcjBITlYwUXZmTEg0WWYtZV8zdFowTmtCT3p5QlBSOUF0N3F6UmJCRlk2Yzg5RURGRkRNMlZvdnk1Q1dZaw?oc=5",
      "date": "2026-11-14T22:02:14+00:00",
@@ -153,12 +161,6 @@
      "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTFBYd2N0ME9OZ0NsLTRvdnBHdkFuWnJYU1NpQ2U4TnVTNXlKcDVyZ1hQbmxGMEs3YUxjb3kzZV9nekpMdw?oc=5",
      "date": "2026-11-09T08:00:00+00:00",
      "source": "YouTube"
-    },
-    {
-     "title": "চেন্নাইয়ের হাসি এখন আবার অস্ট্রেলিয়ার - bdnews24.com",
-     "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE82Y2tsSmYxQXVzNHg0bHFvZDI1V25URHkxenR0TDgyVUNSemdvTDhMTTRmaUUzUWVfSHoxN0dwcmRUVFJfcF9WNG9EaVU4djdvOHhmUEthREstZw?oc=5",
-     "date": "2026-11-06T08:00:00+00:00",
-     "source": "bdnews24.com"
     },
     {
      "title": "ইংল্যান্ডের প্রস্তাব ফিরিয়ে অস্ট্রেলিয়ার দায়িত্বে ‘মিস্টার ক্রিকেট’ - Tsports",
@@ -183,6 +185,18 @@
      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1fSGZQZ1VyOVIyNVBlLXZnTFdKdlF4U3BHZTZ1WVBQUjhrZnE3WWxFSUE3eGtWQnRkSVl0eUhYRFVaR3A0YlNDTnQ5emFzTkZFOW9sZDBMQ3E4dw?oc=5",
      "date": "2026-11-01T07:00:00+00:00",
      "source": "বাংলা টেলিগ্রাফ"
+    },
+    {
+     "title": "এইচএসসির ফল প্রকাশ, পাসের হার ৫২.১২ শতাংশ - বাংলা টেলিগ্রাফ",
+     "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBlNDJOX2VDaEhDRHlwdGZJdjhWRjJBWVVDTTlmdXBvallDRlFVa1drQWFfUmZNVTN5bDY5SmIzanpXOE1jSFlRZmVvVEdZVkdrMDB1NmhJZXhDdw?oc=5",
+     "date": "2026-10-31T07:00:00+00:00",
+     "source": "বাংলা টেলিগ্রাফ"
+    },
+    {
+     "title": "এইচএসসির ফল প্রকাশ আজ, জানা যাবে যেভাবে - স্টার নিউজ",
+     "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOQTV1aVhvSl92WldneVFqNW5ORTkzV0ZKaE5XRktMbFRJMlZpaVN4aC1VSWZCNkp3YVRjekhGXzFTQ0IzUlhBMlVTeUZ5VGNLMlBaNnl5LUFlSWo4ZUpsc2lUeTVVMlB0c01UZExHYzUwMjRNTmZFaHUxUFk2eGI1UU5yM2MzSXJiZWpkX0FlMGhLdlZhSmFxWDRiRDlObWhl?oc=5",
+     "date": "2026-10-31T07:00:00+00:00",
+     "source": "স্টার নিউজ"
     },
     {
      "title": "পিছিয়ে গেলো এইচএসসির ফল প্রকাশের তারিখ, জেনে নিন নতুন দিনক্ষণ - এখন টিভি",
