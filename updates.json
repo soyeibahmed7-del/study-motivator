@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-23T20:55:38.300721+00:00",
+ "generated_at": "2026-11-24T01:11:45.136725+00:00",
  "sources": [
   {
    "id": "nctb",
@@ -193,12 +193,6 @@
      "source": "Bangla Stream"
     },
     {
-     "title": "বাকশিল্পাঙ্গনের নতুন সভাপতি হাসিব বিল্লাহ, সাধারণ সম্পাদক নূৎফা - Jagonews24",
-     "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5hNk1tVFkxX0JrQTQwNldoLThZSGVoMzVFejNucDhoal9qSkZnNXVqb2x2cU9HWC1pakU0UVh6YjFtUUI0ZnlLZDM0dGZvWjIxRTk0TGRGaXVuODJS?oc=5",
-     "date": "2026-11-21T14:15:42+00:00",
-     "source": "Jagonews24"
-    },
-    {
      "title": "নতুন রূপে মঞ্চে ফিরল ১৯৬৫ সালের হাসির নাটক ‘বর সংকট - Channel i Online",
      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNN3FkS0JxM04ybVVfb1lKTGxaNEJmVllQSVJsNEV2Y2JjQUZ4VW15SHo5YXB0MXZWbDlNeFYxZUhiOFdsbjNPMGd4ZkJDQlFHZ3JGM2FURUNHWndBY3didG1ic25NTVBOSVNkS2NFLUFnYkFmVG9Bblh5Z2c5a2xzWFNWODFtbDFBWVRkTk1B?oc=5",
      "date": "2026-11-21T07:53:10+00:00",
@@ -209,6 +203,12 @@
      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBVa2VxZkVoLXRmaHIyLWtyaDNSTmxWOG1tdGtFSlo4d1NLZjFPazBjLXd5cEUxbkxEOGQ1NmFCR0hyVXlVc2xBN0xrWS0yZERzcTM4cnYtYmloUXU5?oc=5",
      "date": "2026-11-19T13:00:35+00:00",
      "source": "YouTube"
+    },
+    {
+     "title": "হঠাৎ পররাষ্ট্র মন্ত্রণালয়ে পিটার হাস - pnsnews24.com",
+     "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE13UzItUmZyYmtYel9hQkN5QVBHLWh5U2NQbU1OVTFEelp0RUg5N1IyZkdQN3Q3VFplM094NUJ4TDN5X0JiV0lZNEVkUDFvRWtJaXpQVkUyb3FoQQ?oc=5",
+     "date": "2026-11-16T08:43:56+00:00",
+     "source": "pnsnews24.com"
     },
     {
      "title": "সময় বদলেছে, বল পায়ে রোনালদিনহোর সেই হাসি বদলায়নি - বাংলা টেলিগ্রাফ",
@@ -244,7 +244,7 @@
   }
  ],
  "ai_news": {
-  "generated_date": "2026-11-23",
+  "generated_date": "2026-11-24",
   "status": "unavailable",
   "items": [],
   "message": "আজ AI briefing তৈরি করা যায়নি; মূল উৎসের খবর নিচে আছে।"
