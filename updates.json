@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-11-27T08:15:04.493332+00:00",
+ "generated_at": "2026-11-27T19:26:47.133063+00:00",
  "sources": [
   {
    "id": "nctb",
-   "name": "NCTB (জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড) — web.archive.org আর্কাইভ কপি, পুরনো হতে পারে",
+   "name": "NCTB (জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড) — r.jina.ai দিয়ে আনা",
    "kind": "official",
    "url": "https://nctb.gov.bd/",
    "status": "ok",
@@ -14,18 +14,8 @@
      "match": "strong"
     },
     {
-     "title": "২০২৬-২৭ শিক্ষাবর্ষের উচ্চ মাধ্যমিক ও সমমান শ্রেণির জন্য নির্ধারিত পাঠ্যসূচি ০১-১০-২০২৬ সাধারণ",
-     "url": "https://nctb.gov.bd/pages/notices/২০২৬-সালের-শিক্ষাবর্ষের-উচ্চ-মাধ্যমিক-ও-সমমান-শ্রেণীর-জন্য-নির্ধারিত-পাঠ্যসূচি-2yvrhr-6abf70ae2e520f8fc8858d74",
-     "match": "strong"
-    },
-    {
-     "title": "২০২৬-২০২৭ শিক্ষাবর্ষের একাদশ-দ্বাদশ শ্রেণির পাঠ্যপুস্তকসমূহে এনসিটিবি'র জলছাপযুক্ত নিরাপত্তা কাগজসহ মুদ্রণ ও বাঁধাই করে বাজারজাত নিশ্চিত করা সংক্রান্ত গণবিজ্ঞপ্তি।[2883] ২৪-০৯-২০২৬ সাধারণ",
-     "url": "https://nctb.gov.bd/pages/notices/গণবিজ্ঞপ্তি-2883-yivprg-6abdcf4082c5c3ca73ec8150",
-     "match": "strong"
-    },
-    {
-     "title": "উচ্চ মাধ্যমিক",
-     "url": "https://nctb.gov.bd/site/files/e977a7e5-be01-4c42-99ac-bc966d334ae7/-",
+     "title": "২০২৬-২৭ শিক্ষাবর্ষের উচ্চ মাধ্যমিক ও সমমান শ্রেণির জন্য নির্ধারিত পাঠ্যসূচি ০১-১০-২০২৬**সাধারণ**",
+     "url": "https://nctb.gov.bd/pages/notices/%E0%A7%A8%E0%A7%A6%E0%A7%A8%E0%A7%AC-%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A7%87%E0%A6%B0-%E0%A6%B6%E0%A6%BF%E0%A6%95%E0%A7%8D%E0%A6%B7%E0%A6%BE%E0%A6%AC%E0%A6%B0%E0%A7%8D%E0%A6%B7%E0%A7%87%E0%A6%B0-%E0%A6%89%E0%A6%9A%E0%A7%8D%E0%A6%9A-%E0%A6%AE%E0%A6%BE%E0%A6%A7%E0%A7%8D%E0%A6%AF%E0%A6%AE%E0%A6%BF%E0%A6%95-%E0%A6%93-%E0%A6%B8%E0%A6%AE%E0%A6%AE%E0%A6%BE%E0%A6%A8-%E0%A6%B6%E0%A7%8D%E0%A6%B0%E0%A7%87%E0%A6%A3%E0%A7%80%E0%A6%B0-%E0%A6%9C%E0%A6%A8%E0%A7%8D%E0%A6%AF-%E0%A6%A8%E0%A6%BF%E0%A6%B0%E0%A7%8D%E0%A6%A7%E0%A6%BE%E0%A6%B0%E0%A6%BF%E0%A6%A4-%E0%A6%AA%E0%A6%BE%E0%A6%A0%E0%A7%8D%E0%A6%AF%E0%A6%B8%E0%A7%82%E0%A6%9A%E0%A6%BF-2yvrhr-6abf70ae2e520f8fc8858d74",
      "match": "strong"
     },
     {
@@ -56,6 +46,16 @@
     {
      "title": "আর্কাইভ নোটিশ",
      "url": "https://nctb.gov.bd/pages/notices?archived=true",
+     "match": "related"
+    },
+    {
+     "title": "সকল নোটিশ দেখুন",
+     "url": "https://nctb.gov.bd/pages/notices",
+     "match": "related"
+    },
+    {
+     "title": "টেন্ডার নোটিশ",
+     "url": "https://nctb.gov.bd/pages/tenders",
      "match": "related"
     }
    ]
@@ -163,16 +163,22 @@
      "source": "প্রথম আলো"
     },
     {
+     "title": "যুক্তরাজ্যে পিএইচডিতে ফুল ফ্রি স্কলারশিপের সুযোগ - Dhaka Mail",
+     "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1xWGJMR1R6aGVXbEstQTFmeXlIUGQ0NnFZSkdSY1pWenZvckpzcGZyNFZBWFlFUnFHcTduTDhFNFBlUlFXWGhsb1ZYb29EbXdLU1HSAVdBVV95cUxNdTQzd1hsQzJnYS1fSmlOQnJOaDlWWURhUE9XRXE0RklkbktsbWJaSEcySF9uWnBqTk1tZTJaaDMyRWpoT0lUb09ZTzVqclp4bmlZc3QzVzQ?oc=5",
+     "date": "2026-11-25T05:16:24+00:00",
+     "source": "Dhaka Mail"
+    },
+    {
      "title": "মেডিক্যাল-ডেন্টালে ভর্তি বিজ্ঞপ্তি প্রকাশ, আজ থেকেই আবেদন শুরু - শিক্ষক বাতায়ন",
      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5ZMGotejE3VlZtX0lVdEd5LWN0NFdWNkhMOTVCaWtyYTh4VXB2cElUTVpGM0xFZDc2N20zWVBsVGtCeklqU1VJbEtLRjZqWVBhWlplcUxKUzNYUW8?oc=5",
      "date": "2026-11-25T04:41:00+00:00",
      "source": "শিক্ষক বাতায়ন"
     },
     {
-     "title": "এইচএসসির পুনর্নিরীক্ষণের ফলাফলে সংশোধন আনল বোর্ড - কালের কণ্ঠ",
-     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5jTnYxRmpjNTNWQ3J4TVd0SE05LTVYUFlsUEF1bDhfNGg0bUNvZTV4ZE5PbWpxdXUzZHBxelN1TUxyTEk2OFZOdE1qR1pUS3M0REdOUWE0MVhWNnRhbzVCQXNXQ2lMVjRkODhKaEVERE8yaWFPc0E?oc=5",
-     "date": "2026-11-23T14:11:56+00:00",
-     "source": "কালের কণ্ঠ"
+     "title": "২০২৮ কোপা আমেরিকার আয়োজক ঘোষণা - dhakapost.com",
+     "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE0tdWVpem4tcmFicmpGbEl6TUU0R1VocFdxa1VNWThLenBzZFlwLWh5WXgxYlpfTXJhZ3hMd01wcUVmeHRnb3VIbm1qRjFTdURV?oc=5",
+     "date": "2026-11-24T16:13:32+00:00",
+     "source": "dhakapost.com"
     },
     {
      "title": "এইচএসসির পুনর্নিরীক্ষণের ফল পুনঃপ্রকাশ, কোন বোর্ডে জিপিএ-৫ কত? - The Daily Campus",
@@ -215,12 +221,6 @@
      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9yRWcxMk4xUmlZamxEZzZIaVdNUUtlSEZKNzczc2c2bzVoeUV3RzhBSS1MWlh5UVlJd21mcWZKWUhWRnp1OGFBcktmRmRnS3J6VHRUd3N4cXNiR3PSAWBBVV95cUxQZUp6c1FQcmgtWlE4Ykkta0kxRF92ek5McGtkdnprUXQxSTJFTC1kTHBuV3VuTE9QaG9SQnp2U2xoUmdwYTZnemNTMzdpcUhyYzMyRHhFaUI2VFlaRjFfMlE?oc=5",
      "date": "2026-11-22T10:25:53+00:00",
      "source": "The Daily Campus"
-    },
-    {
-     "title": "বাকশিল্পাঙ্গনের নতুন সভাপতি হাসিব বিল্লাহ, সাধারণ সম্পাদক নূৎফা - Amar Desh",
-     "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1nQjJRVWp3ZWRiN0dlODFNMDNTd1BkdGVJbjVWalQtbV91Uks1MWQ1aFpndDZjeVA1ZmVGcU1YaWhpeEMwT2FscWJYN0JoRnZodGk2UUNnY3JEZ0VkZnpV0gFkQVVfeXFMTVFwY0J5dV9RV2NubV9xOGNFNXNFdWc5TzJYdVBudkt2V0ZxemljeVhmc2ZjcTdXQ2IxendQMDlzd1FwZHVZajk1UjdTdmFWclM0UkJXTXhGSEZuT2twWmlhSHljVA?oc=5",
-     "date": "2026-11-21T13:05:54+00:00",
-     "source": "Amar Desh"
     }
    ]
   },
